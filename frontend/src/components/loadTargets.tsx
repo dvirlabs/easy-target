@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import './style/targetsWindow.css';
+import '../style/targetsWindow.css';
 
 const LoadTargets = () => {
   const [data, setData] = useState<any>(null); // Adjust type here
