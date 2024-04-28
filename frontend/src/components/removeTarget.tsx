@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './style/removeTarget.css'
+import '../style/removeTarget.css'
 
 const RemoveTarget = () => {
   const [inputValue, setInputValue] = useState('');
