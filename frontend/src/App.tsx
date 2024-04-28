@@ -1,4 +1,5 @@
 import './style/App.css'
+import './style/toggleTheme.css'
 import InsertTarget from './components/insertTarget';
 import RemoveTarget from './components/removeTarget';
 import InsertIpTitle from './components/insertIpTitle';

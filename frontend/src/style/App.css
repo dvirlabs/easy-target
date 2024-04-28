@@ -1,7 +1,9 @@
 #light {
   background-color: rgb(246, 251, 255);
+  color: brown;
 }
 
 #dark {
   background-color: rgb(58, 58, 58);
+  color: chartreuse;
 }
