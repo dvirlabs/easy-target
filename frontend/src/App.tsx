@@ -1,16 +1,15 @@
 import './style/App.css'
 import InsertTarget from './components/insertTarget';
 import RemoveTarget from './components/removeTarget';
-import InsertIpTitle from './components/insertIpTitle';
-import RemoveIpTitle from './components/removeIpTitle';
 import TargetsWindow from './components/loadTargets';
-
+import Title from './components/title';
+import { titles } from './const';
 function App() {
   return (
     <div className="App">
-      <InsertIpTitle />
+      <Title text={titles.insert}/>
       <InsertTarget />
-      <RemoveIpTitle />
+      <Title text={titles.remove}/>
       <RemoveTarget />
       <TargetsWindow />
     </div>

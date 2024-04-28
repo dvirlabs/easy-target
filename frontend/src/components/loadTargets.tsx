@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
-import axios from 'axios';
 import '../style/targetsWindow.css';
+import { fetchTargetData } from '../services/target.service';
 
 const LoadTargets = () => {
   const [data, setData] = useState<any>(null); // Adjust type here
@@ -9,15 +9,15 @@ const LoadTargets = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/get_targets');
-        setData(response.data);
-      } catch (error) {
-        setError(error as Error);
-      }
-      setLoading(false);
+        try {
+            const data = await fetchTargetData();
+            setData(data);
+            setError(null);
+        } catch (error) {
+            setError(error as Error);
+        }
+        setLoading(false);
     };
-
     fetchData();
   }, []);
 
