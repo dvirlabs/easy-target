@@ -1,0 +1,13 @@
+.targets-window {
+    border-style: solid;
+    width: 15cm;
+    margin: auto;
+}
+
+.targets {
+    background-color: rgb(59, 108, 121);
+    text-align: left;
+    color: rgb(94, 255, 0);
+    font-size: 25px;
+    font-style: oblique;
+}
