@@ -5,9 +5,13 @@ import InsertIpTitle from './components/insertIpTitle';
 import RemoveIpTitle from './components/removeIpTitle';
 import TargetsWindow from './components/loadTargets';
 import { createContext, useState } from 'react';
-import ReactSwitch from "react-switch";
+import ReactSwitch from 'react-switch';
 
-export const ThemeContext = createContext("light");
+
+export const ThemeContext = createContext({
+  theme: "light",
+  toggleTheme: () => {},
+});
 
 function App() {
   const [theme, setTheme] =  useState("light");
