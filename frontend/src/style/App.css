@@ -1,9 +1,17 @@
 #light {
-  background-color: rgb(246, 251, 255);
+  background-color: rgb(183, 196, 207);
   color: brown;
 }
 
 #dark {
-  background-color: rgb(58, 58, 58);
+  background-color: #242424;
   color: chartreuse;
+}
+
+.switch {
+  margin-bottom: 30px;
+}
+
+body {
+
 }

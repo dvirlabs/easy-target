@@ -1,11 +1,7 @@
 import './style/App.css'
 import './style/toggleTheme.css'
-import InsertTarget from './components/insertTarget';
-import RemoveTarget from './components/removeTarget';
-import InsertIpTitle from './components/insertIpTitle';
-import RemoveIpTitle from './components/removeIpTitle';
-import TargetsWindow from './components/loadTargets';
-import { createContext, useState } from 'react';
+import * as Components from './components';
+import { createContext, useEffect, useState } from 'react';
 import ReactSwitch from 'react-switch';
 
 
@@ -15,7 +11,14 @@ export const ThemeContext = createContext({
 });
 
 function App() {
-  const [theme, setTheme] =  useState("light");
+  const [theme, setTheme] =  useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme || "light";
+  });
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
   
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
@@ -23,14 +26,15 @@ function App() {
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div className="App" id={theme}>
+        <Components.InsertIpTitle />
+        <Components.InsertTarget />
+        <Components.RemoveIpTitle />
+        <Components.RemoveTarget />
         <div className='switch'>
+        <label> {theme === "light" ? "Light Mode" : "Dark Mode"}</label>
           <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
         </div>
-        <InsertIpTitle />
-        <InsertTarget />
-        <RemoveIpTitle />
-        <RemoveTarget />
-        <TargetsWindow />
+        <Components.TargetsWindow />
       </div>
     </ThemeContext.Provider>
   );
