@@ -2,6 +2,8 @@
     display: flex; /* Allow horizontal layout for field and button */
     align-items: center; /* Align vertically for centering */
     margin-bottom: 1rem; /* Add some spacing for aesthetics */
+    width: 70%;
+    margin: auto;
   }
   
   .insert-target input {
@@ -20,9 +22,9 @@
   }
   
  .insert-target button { 
-    margin-top: 15px;
     margin-left: 0.5rem; /* Add some space between input and button */
     height: 45px;
+    flex: 0;
   }
   
   .insert-target .error {
