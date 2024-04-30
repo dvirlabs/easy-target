@@ -19,20 +19,10 @@
     border-color: #007bff; /* Blue border on focus for user feedback */
   }
   
-  .insert-target button {
+ .insert-target button { 
     margin-top: 15px;
     margin-left: 0.5rem; /* Add some space between input and button */
-    padding: 0.75rem 1.5rem; /* Adjust padding for a comfortable size */
-    border: none; /* Remove default button border */
-    border-radius: 4px; /* Match input element's rounded corners */
-    font-size: 1rem; /* Match input element's font size */
-    background-color: #007bff; /* Blue background for a primary action */
-    color: #fff; /* White text for better contrast */
-    cursor: pointer; /* Indicate clickable action */
-  }
-  
-  .insert-target button:hover {
-    background-color: #0069d9; /* Slightly darker blue on hover for feedback */
+    height: 45px;
   }
   
   .insert-target .error {

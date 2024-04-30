@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/insertTarget.css'
 
 const InsertTarget = () => {
@@ -47,8 +49,8 @@ const InsertTarget = () => {
         onChange={(e) => setPortValue(e.target.value)}
         placeholder="Insert Port"
         className='fileds'
-      />
-      <button className='insert-target' onClick={handleSubmit}>Submit</button>
+        />
+      <Button className = 'insert-target' onClick={handleSubmit}>Submit</Button>
       {error && !responseData && (
         <div className='error'>
           <p>{error}</p>
