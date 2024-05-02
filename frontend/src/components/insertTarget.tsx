@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/insertTarget.css'
 
@@ -35,34 +38,42 @@ const InsertTarget = () => {
   };
 
   return (
-    <div className='insert-target'>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Insert IP"
-        className='fileds'
-      />
-      <input
-        type="text"
-        value={portValue}
-        onChange={(e) => setPortValue(e.target.value)}
-        placeholder="Insert Port"
-        className='fileds'
-        />
-      <Button className = 'insert-target' onClick={handleSubmit}>Submit</Button>
-      {error && !responseData && (
-        <div className='error'>
-          <p>{error}</p>
+    <Container className='insert-target'>
+      <Row>
+        <Col md={5}>
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="Insert IP"
+            className='fileds'
+          />
+        </Col>
+        <Col md={5}>
+        <input
+          type="text"
+          value={portValue}
+          onChange={(e) => setPortValue(e.target.value)}
+          placeholder="Insert Port"
+          className='fileds'
+          />
+        </Col>
+        <Col md={2}>
+        <Button className = 'insert-target' onClick={handleSubmit}>Submit</Button>
+        {error && !responseData && (
+          <div className='error'>
+            <p>{error}</p>
+            </div>
+          )}
+        {responseData && !error && (
+          <div className='response-data'>
+            <h2>Response Data</h2>
+            <p>{JSON.stringify(responseData)}</p>
           </div>
         )}
-      {responseData && !error && (
-        <div className='response-data'>
-          <h2>Response Data</h2>
-          <p>{JSON.stringify(responseData)}</p>
-        </div>
-      )}
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
