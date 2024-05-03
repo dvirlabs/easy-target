@@ -8,6 +8,7 @@ export { default as InsertIpTitle } from '../components/insertIpTitle';
 export { default as RemoveIpTitle } from '../components/removeIpTitle';
 export { default as TargetsWindow } from '../components/loadTargets';
 export { default as EasyTargetLogo } from '../components/easyTargetLogo';
+export { default as MadeBy } from '../components/madeBy';
 
 // Svg
 // ###### Dark Mode SVG ######

@@ -39,6 +39,7 @@ function App() {
         <Components.RemoveIpTitle />
         <Components.RemoveTarget />
         <Components.TargetsWindow />
+        <Components.MadeBy />
       </div>
     </ThemeContext.Provider>
   );
