@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/insertTarget.css'
 
@@ -38,18 +35,14 @@ const InsertTarget = () => {
   };
 
   return (
-    <Container className='insert-target'>
-      <Row>
-        <Col md={5}>
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Insert IP"
-            className='fileds'
-          />
-        </Col>
-        <Col md={5}>
+    <div className='insert-target'>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Insert IP"
+          className='fileds'
+        />
         <input
           type="text"
           value={portValue}
@@ -57,8 +50,6 @@ const InsertTarget = () => {
           placeholder="Insert Port"
           className='fileds'
           />
-        </Col>
-        <Col md={2}>
         <Button className = 'insert-target' onClick={handleSubmit}>Submit</Button>
         {error && !responseData && (
           <div className='error'>
@@ -71,9 +62,7 @@ const InsertTarget = () => {
             <p>{JSON.stringify(responseData)}</p>
           </div>
         )}
-        </Col>
-      </Row>
-    </Container>
+    </div>
   );
 };
 

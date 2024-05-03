@@ -5,14 +5,12 @@
 
 #dark {
   background-color: #242424;
-  color: chartreuse;
+  color: azure;
 }
 
 .switch {
-  border: 2px solid;
   align-items: center;
   display: flex;
-  margin-bottom: 30px;
   width: fit-content;
 }
 
