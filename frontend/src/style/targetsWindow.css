@@ -1,14 +1,22 @@
 .targets-window {
-    border-style: solid;
+    border-style: dashed;
+    border-radius: 3%;
     width: 15cm;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 50px;
+}
+
+.targets-window h1 {
+    margin: 4px 0 10px 0;
+    text-align: center;
 }
 
 .targets {
-    background-color: rgb(59, 108, 121);
+    background-color: rgb(204, 122, 40);
     text-align: left;
-    color: rgb(94, 255, 0);
+    color: rgb(255, 255, 255);
     font-size: 25px;
     font-style: oblique;
+    margin: 2px;
+    border-radius: 2%;
 }
