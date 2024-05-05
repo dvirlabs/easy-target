@@ -55,6 +55,7 @@
   .response-data {
     margin-left: 50px;
     background-color: rgb(66, 138, 66);
+    color: #fff;
   }
 
   .error {
