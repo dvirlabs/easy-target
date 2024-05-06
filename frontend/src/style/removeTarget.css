@@ -14,7 +14,6 @@
     font-size: 1rem; /* Adjust font size for readability */
     background-color: #fff; /* White background for contrast */
     color: #333; /* Dark text for better visibility */
-    margin-bottom: 40px;
   }
   
   .remove-target input:focus {
@@ -26,7 +25,6 @@
     flex: 0;
     margin-left: 0.5rem; /* Add some space between input and button */
     height: 45px;
-    margin-bottom: 40px;
   }
   
   .remove-target .error {
