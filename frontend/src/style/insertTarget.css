@@ -2,8 +2,10 @@
     display: flex; /* Allow horizontal layout for field and button */
     align-items: center; /* Align vertically for centering */
     margin-bottom: 1rem; /* Add some spacing for aesthetics */
+    width: 50%;
+    margin: auto;
   }
-  
+
   .insert-target input {
     flex: 1; /* Make input element take up available space */
     padding: 0.75rem 1rem; /* Adjust padding for a clean look */
@@ -13,43 +15,33 @@
     background-color: #fff; /* White background for contrast */
     color: #333; /* Dark text for better visibility */
   }
-  
+
   .insert-target input:focus {
     outline: none; /* Remove default browser outline */
     border-color: #007bff; /* Blue border on focus for user feedback */
   }
-  
-  .insert-target button {
-    margin-top: 15px;
+
+  .insert-target button { 
+    flex: 0;
     margin-left: 0.5rem; /* Add some space between input and button */
-    padding: 0.75rem 1.5rem; /* Adjust padding for a comfortable size */
-    border: none; /* Remove default button border */
-    border-radius: 4px; /* Match input element's rounded corners */
-    font-size: 1rem; /* Match input element's font size */
-    background-color: #007bff; /* Blue background for a primary action */
-    color: #fff; /* White text for better contrast */
-    cursor: pointer; /* Indicate clickable action */
+    height: 45px;
   }
-  
-  .insert-target button:hover {
-    background-color: #0069d9; /* Slightly darker blue on hover for feedback */
-  }
-  
+
   .insert-target .error {
     margin-top: 0.5rem; /* Add some space above error message */
   }
-  
+
   .insert-target .response-data {
     margin-top: 1rem; /* Add space after successful submission */
     padding: 1rem; /* Add padding for a defined area */
     border: 1px solid #ddd; /* Light border for separation */
     border-radius: 4px; /* Rounded corners for a modern touch */
   }
-  
+
   .insert-target .response-data h2 {
     margin-bottom: 0.5rem; /* Add some space after heading */
   }
-  
+
   .insert-target .response-data pre {
     /* Apply appropriate styles for preformatted code (JSON) */
     background-color: #f5f5f5; /* Light gray background */
@@ -61,6 +53,7 @@
   .response-data {
     margin-left: 50px;
     background-color: rgb(66, 138, 66);
+    color: #fff;
   }
 
   .error {

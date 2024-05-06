@@ -2,6 +2,8 @@
     display: flex; /* Allow horizontal layout for field and button */
     align-items: center; /* Align vertically for centering */
     margin-bottom: 1rem; /* Add some spacing for aesthetics */
+    width: 50%;
+    margin: auto;
   }
   
   .remove-target input {
@@ -19,20 +21,10 @@
     border-color: #007bff; /* Blue border on focus for user feedback */
   }
   
-  .remove-target button {
-    margin-top: 15px;
+  .remove-target button { 
+    flex: 0;
     margin-left: 0.5rem; /* Add some space between input and button */
-    padding: 0.75rem 1.5rem; /* Adjust padding for a comfortable size */
-    border: none; /* Remove default button border */
-    border-radius: 4px; /* Match input element's rounded corners */
-    font-size: 1rem; /* Match input element's font size */
-    background-color: #007bff; /* Blue background for a primary action */
-    color: #fff; /* White text for better contrast */
-    cursor: pointer; /* Indicate clickable action */
-  }
-  
-  .remove-target button:hover {
-    background-color: #0069d9; /* Slightly darker blue on hover for feedback */
+    height: 45px;
   }
   
   .remove-target .error {
@@ -61,6 +53,7 @@
   .response-data {
     margin-left: 50px;
     background-color: rgb(66, 138, 66);
+    color: #fff;
   }
 
   .error {

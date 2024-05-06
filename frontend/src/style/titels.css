@@ -1,0 +1,16 @@
+.title {
+    text-align: center;
+    margin-bottom: 30px;
+    margin: 0px 0px 30px 0px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+footer {
+    text-align: left;
+    margin-left: 10px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}

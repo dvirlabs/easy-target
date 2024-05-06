@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import './style/removeTarget.css'
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '../style/removeTarget.css'
 
 const RemoveTarget = () => {
   const [inputValue, setInputValue] = useState('');
@@ -48,7 +50,7 @@ const RemoveTarget = () => {
         placeholder="Insert Port"
         className='fileds'
       />
-      <button className='remove-target' onClick={handleSubmit}>Submit</button>
+      <Button className='remove-target' onClick={handleSubmit}>Submit</Button>
       {error && !responseData && (
         <div className='error'>
           <p>{error}</p>

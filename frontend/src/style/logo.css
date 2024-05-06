@@ -1,0 +1,13 @@
+.easy-target {
+    height: 150px;
+    width: auto;
+    display: flex;
+    align-items: center; /* Keep elements vertically centered */
+    justify-content: center;
+    gap: 5px;  /* Set gap between logo and text (adjust as needed) */
+  }
+  
+  .easy-target h1 {
+    margin: 0; /* Remove default margin for better spacing */
+    font: italic small-caps bold 80px/2 cursive;
+  }

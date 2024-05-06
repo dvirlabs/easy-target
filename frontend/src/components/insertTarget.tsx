@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import './style/insertTarget.css'
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '../style/insertTarget.css'
 
 const InsertTarget = () => {
   const [inputValue, setInputValue] = useState('');
@@ -34,32 +36,32 @@ const InsertTarget = () => {
 
   return (
     <div className='insert-target'>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Insert IP"
-        className='fileds'
-      />
-      <input
-        type="text"
-        value={portValue}
-        onChange={(e) => setPortValue(e.target.value)}
-        placeholder="Insert Port"
-        className='fileds'
-      />
-      <button className='insert-target' onClick={handleSubmit}>Submit</button>
-      {error && !responseData && (
-        <div className='error'>
-          <p>{error}</p>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Insert IP"
+          className='fileds'
+        />
+        <input
+          type="text"
+          value={portValue}
+          onChange={(e) => setPortValue(e.target.value)}
+          placeholder="Insert Port"
+          className='fileds'
+          />
+        <Button className = 'insert-target' onClick={handleSubmit}>Submit</Button>
+        {error && !responseData && (
+          <div className='error'>
+            <p>{error}</p>
+            </div>
+          )}
+        {responseData && !error && (
+          <div className='response-data'>
+            <h2>Response Data</h2>
+            <p>{JSON.stringify(responseData)}</p>
           </div>
         )}
-      {responseData && !error && (
-        <div className='response-data'>
-          <h2>Response Data</h2>
-          <p>{JSON.stringify(responseData)}</p>
-        </div>
-      )}
     </div>
   );
 };

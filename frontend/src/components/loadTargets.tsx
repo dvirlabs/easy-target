@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import './style/targetsWindow.css';
+import '../style/targetsWindow.css';
 
 const LoadTargets = () => {
   const [data, setData] = useState<any>(null); // Adjust type here
@@ -26,8 +26,10 @@ const LoadTargets = () => {
 
   return (
     <div className='targets-window'>
-      <h1>Targets:</h1>
-      <pre className='targets'>{JSON.stringify(data, null, 2)}</pre>
+        <h1>Targets:</h1>
+      <div className='targets'>
+        <pre className='targets'>{JSON.stringify(data, null, 2)}</pre>
+      </div>
     </div>
   );
 };
