@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/insertTarget.css'
@@ -34,6 +34,12 @@ const InsertTarget = () => {
     }
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
   return (
     <div className='insert-target'>
         <input
@@ -42,6 +48,7 @@ const InsertTarget = () => {
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Insert IP"
           className='fileds'
+          onKeyDown={handleKeyDown}
         />
         <input
           type="text"
@@ -49,6 +56,7 @@ const InsertTarget = () => {
           onChange={(e) => setPortValue(e.target.value)}
           placeholder="Insert Port"
           className='fileds'
+          onKeyDown={handleKeyDown}
           />
         <Button className = 'insert-target' onClick={handleSubmit}>Submit</Button>
         {error && !responseData && (

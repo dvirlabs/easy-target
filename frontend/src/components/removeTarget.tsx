@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/removeTarget.css'
 
 const RemoveTarget = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [ipValue, setInputValue] = useState('');
   const [portValue, setPortValue] = useState('');
   const [responseData, setResponseData] = useState(null);
   const [error, setError] = useState<string | null>(null);
@@ -16,7 +16,7 @@ const RemoveTarget = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ target_ip: inputValue, port: portValue }),
+        body: JSON.stringify({ target_ip: ipValue, port: portValue }),
       });
 
       if (!response.ok) {
@@ -34,14 +34,21 @@ const RemoveTarget = () => {
     }
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
   return (
     <div className='remove-target'>
       <input
         type="text"
-        value={inputValue}
+        value={ipValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Insert IP"
         className='fileds'
+        onKeyDown={handleKeyDown}
       />
       <input
         type="text"
@@ -49,6 +56,7 @@ const RemoveTarget = () => {
         onChange={(e) => setPortValue(e.target.value)}
         placeholder="Insert Port"
         className='fileds'
+        onKeyDown={handleKeyDown}
       />
       <Button className='remove-target' onClick={handleSubmit}>Submit</Button>
       {error && !responseData && (
