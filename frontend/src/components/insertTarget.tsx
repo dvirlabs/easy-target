@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/target.css';
 import CustomInput from './customInput';
 
+
 const InsertTarget = () => {
   const [ipValue, setInputValue] = useState('');
   const [portValue, setPortValue] = useState('');
@@ -12,7 +13,7 @@ const InsertTarget = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:8000/add_target', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/add_target`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react';
-//import axios from 'axios';
 import '../style/targetsWindow.css';
 import { fetchTargetData } from '../services/target.service';
 
@@ -16,7 +15,6 @@ const LoadTargets = () => {
     } catch (error) {
       setError(error as Error);
       setLoading(false);
-      return {};
     } 
   }
 
@@ -29,7 +27,7 @@ const LoadTargets = () => {
 
   return (
     <div className='targets-window'>
-        <h1>Targets:</h1>
+        <h1 className='targets-window-title'>Targets:</h1>
       <div className='targets'>
         <pre className='targets'>{JSON.stringify(data, null, 2)}</pre>
       </div>

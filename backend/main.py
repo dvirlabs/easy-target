@@ -63,7 +63,7 @@ async def remove_target(data: dict):
     with open(targets_file, "w") as f:
         f.writelines(filtered_lines)
 
-    return {"message": f"Target {target_ip} removed successfully!"}
+    return {f"Target {target_ip} removed successfully!"}
 
 
 @app.get("/get_targets")
