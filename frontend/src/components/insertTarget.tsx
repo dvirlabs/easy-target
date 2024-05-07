@@ -2,6 +2,7 @@ import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/insertTarget.css'
+import { Toaster } from 'sonner';
 
 const InsertTarget = () => {
   const [ipValue, setInputValue] = useState('');

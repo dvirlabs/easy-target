@@ -10,7 +10,7 @@ const LoadTargets = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/get_targets');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/get_targets`);
         setData(response.data);
       } catch (error) {
         setError(error as Error);
@@ -26,7 +26,7 @@ const LoadTargets = () => {
 
   return (
     <div className='targets-window'>
-        <h1>Targets:</h1>
+        <h1 className='targets-window-title'>Targets:</h1>
       <div className='targets'>
         <pre className='targets'>{JSON.stringify(data, null, 2)}</pre>
       </div>
