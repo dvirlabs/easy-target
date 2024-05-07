@@ -1,6 +1,8 @@
 import './style/App.css'
 import './style/toggleTheme.css'
 import * as Components from './import-things';
+import Title from './components/title';
+import { titles } from './const';
 import { createContext, useEffect, useState } from 'react';
 import ReactSwitch from 'react-switch';
 import { DarkModeSVG, LightModeSVG } from './import-things';
@@ -34,9 +36,9 @@ function App() {
           </label>
           <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
         </div>
-        <Components.InsertIpTitle />
+        <Title text={titles.insert}/>
         <Components.InsertTarget />
-        <Components.RemoveIpTitle />
+        <Title text={titles.remove}/>
         <Components.RemoveTarget />
         <Components.TargetsWindow />
         <Components.MadeBy />

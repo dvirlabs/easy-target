@@ -1,7 +1,8 @@
 import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../style/insertTarget.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../style/target.css';
+import CustomInput from './customInput';
 
 const InsertTarget = () => {
   const [ipValue, setInputValue] = useState('');
@@ -19,10 +20,7 @@ const InsertTarget = () => {
         body: JSON.stringify({ target_ip: ipValue, port: portValue }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-
+      //const data = await addTarget(ipValue, portValue);
       const data = await response.json();
       setResponseData(data);
       setError(null);
@@ -41,30 +39,29 @@ const InsertTarget = () => {
   };
 
   return (
-    <div className='insert-target'>
-        <input
-          type="text"
-          value={ipValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Insert IP"
-          className='fileds'
-          onKeyDown={handleKeyDown}
-        />
-        <input
-          type="text"
-          value={portValue}
-          onChange={(e) => setPortValue(e.target.value)}
-          placeholder="Insert Port"
-          className='fileds'
-          onKeyDown={handleKeyDown}
-          />
-        <Button className = 'insert-target' onClick={handleSubmit}>Submit</Button>
-        {error && !responseData && (
+    <div className='target-container'>
+      <CustomInput 
+        value={ipValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="Insert IP"
+        onKeyDown={handleKeyDown}
+      />
+
+      <CustomInput 
+        value={portValue}
+        onChange={(e) => setPortValue(e.target.value)}
+        placeholder="Insert Port"
+        onKeyDown={handleKeyDown}
+      />
+
+        <Button className = 'target-container' onClick={handleSubmit}>Submit</Button>
+        {error&& (
           <div className='error'>
             <p>{error}</p>
-            </div>
-          )}
-        {responseData && !error && (
+          </div>
+        )}
+
+        {responseData && (
           <div className='response-data'>
             <h2>Response Data</h2>
             <p>{JSON.stringify(responseData)}</p>
