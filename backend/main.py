@@ -35,7 +35,7 @@ async def add_target(data: dict):
     with open(targets_file, "a") as f:
         f.write(f"\n  - '{target_ip}:{port}'")  # Adjust port if needed 
 
-    return {"message": f"Target {target_ip} added successfully!"}
+    return {f"Target {target_ip} added successfully!"}
 
 @app.delete("/remove_target")
 async def remove_target(data: dict):

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/insertTarget.css'
 
 const InsertTarget = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [ipValue, setInputValue] = useState('');
   const [portValue, setPortValue] = useState('');
   const [responseData, setResponseData] = useState(null);
   const [error, setError] = useState<string | null>(null);
@@ -16,7 +16,7 @@ const InsertTarget = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ target_ip: inputValue, port: portValue }),
+        body: JSON.stringify({ target_ip: ipValue, port: portValue }),
       });
 
       if (!response.ok) {
@@ -38,7 +38,7 @@ const InsertTarget = () => {
     <div className='insert-target'>
         <input
           type="text"
-          value={inputValue}
+          value={ipValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Insert IP"
           className='fileds'
