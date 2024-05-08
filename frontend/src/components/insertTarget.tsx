@@ -1,14 +1,20 @@
 import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+
+import { Alert } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/insertTarget.css'
-import { Toaster } from 'sonner';
+
 
 const InsertTarget = () => {
   const [ipValue, setInputValue] = useState('');
   const [portValue, setPortValue] = useState('');
   const [responseData, setResponseData] = useState(null);
-  const [error, setError] = useState<string | null>(null);
+
+  const toastSuccess = (text: string) => toast.success(text);
+  const toastInfo = (text: string) => toast.info(text);
+  const toastError = (text: string) => toast.error(text);
 
   const handleSubmit = async () => {
     try {
@@ -25,12 +31,13 @@ const InsertTarget = () => {
       }
 
       const data = await response.json();
+      toastSuccess('Target added succesfuly');
       setResponseData(data);
-      setError(null);
       setInputValue('');
       setPortValue('');
     } catch (error) {
-      setError('An error occurred while fetching data.');
+      toastError('An error occurred  while fetching data.');
+      // error('An error occurred  while fetching data.')
       setResponseData(null);
     }
   };
@@ -60,17 +67,18 @@ const InsertTarget = () => {
           onKeyDown={handleKeyDown}
           />
         <Button className = 'insert-target' onClick={handleSubmit}>Submit</Button>
-        {error && !responseData && (
+          {/* {error && !responseData && (
           <div className='error'>
             <p>{error}</p>
             </div>
           )}
         {responseData && !error && (
           <div className='response-data'>
-            <h2>Response Data</h2>
+            <h2>Response Data</h2>                    
             <p>{JSON.stringify(responseData)}</p>
           </div>
-        )}
+          // <Alert severity="success" variant="filled">Target added succesfuly</Alert>
+        )} */}
     </div>
   );
 };

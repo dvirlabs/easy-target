@@ -4,15 +4,17 @@ import * as Components from './import-things';
 import { createContext, useEffect, useState } from 'react';
 import ReactSwitch from 'react-switch';
 import { DarkModeSVG, LightModeSVG } from './import-things';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export const ThemeContext = createContext({
   theme: "light",
-  toggleTheme: () => {},
+  toggleTheme: () => { },
 });
 
 function App() {
-  const [theme, setTheme] =  useState(() => {
+  const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     return savedTheme || "light";
   });
@@ -20,12 +22,24 @@ function App() {
   useEffect(() => {
     localStorage.setItem('theme', theme);
   }, [theme]);
-  
+
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce} />
       <div className="App" id={theme}>
         <Components.EasyTargetLogo />
         <div className='switch'>
