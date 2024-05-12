@@ -4,8 +4,6 @@ import '../style/icons.css'
 // Components
 export { default as InsertTarget } from '../components/insertTarget';
 export { default as RemoveTarget } from '../components/removeTarget';
-export { default as InsertIpTitle } from '../components/insertIpTitle';
-export { default as RemoveIpTitle } from '../components/removeIpTitle';
 export { default as TargetsWindow } from '../components/loadTargets';
 export { default as EasyTargetLogo } from '../components/easyTargetLogo';
 export { default as MadeBy } from '../components/madeBy';

@@ -1,24 +1,25 @@
 import {useState, useEffect} from 'react';
-import axios from 'axios';
 import '../style/targetsWindow.css';
+import { fetchTargetData } from '../services/target.service';
 
 const LoadTargets = () => {
   const [data, setData] = useState<any>(null); // Adjust type here
   const [loading, setLoading] = useState<boolean>(true); // Adjust type here
   const [error, setError] = useState<Error | null>(null); // Adjust type here
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/get_targets`);
-        setData(response.data);
-      } catch (error) {
-        setError(error as Error);
-      }
+  const fatchData = async () => {
+    try {
+      const targets = await fetchTargetData();
+      setData(targets);
       setLoading(false);
-    };
+    } catch (error) {
+      setError(error as Error);
+      setLoading(false);
+    } 
+  }
 
-    fetchData();
+  useEffect(() => {
+    fatchData();
   }, []);
 
   if (loading) return <div>Loading...</div>;
