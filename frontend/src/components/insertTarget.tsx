@@ -13,7 +13,7 @@ const InsertTarget = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/add_target`, {
+      const response = await fetch(`${process.env.REACT_APP_SERVER_IP}/add_target`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
