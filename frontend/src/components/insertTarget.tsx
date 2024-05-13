@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/target.css';
 import CustomInput from './customInput';
+import { addTarget } from '../services/target.service';
 
 
 const InsertTarget = () => {
@@ -13,22 +14,13 @@ const InsertTarget = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_IP}/add_target`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ target_ip: ipValue, port: portValue }),
-      });
-
-      //const data = await addTarget(ipValue, portValue);
-      const data = await response.json();
+      const data = await addTarget(ipValue, portValue); // Use addTarget function
       setResponseData(data);
       setError(null);
       setInputValue('');
       setPortValue('');
     } catch (error) {
-      setError('An error occurred while fetching data.');
+      setError('An error occurred while adding the target.');
       setResponseData(null);
     }
   };
