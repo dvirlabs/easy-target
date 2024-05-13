@@ -19,7 +19,7 @@ const RemoveTarget = () => {
       setInputValue('');
       setPortValue('');
     } catch (error) {
-      setError('An error occurred while adding the target.');
+      setError('An error occurred while removing the target.');
       setResponseData(null);
     }
   };
