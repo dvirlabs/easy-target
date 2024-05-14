@@ -11,7 +11,7 @@ const RemoveTarget = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/remove_target`, {
+      const response = await fetch(`${process.env.REACT_APP_SERVER_IP}/remove_target`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
