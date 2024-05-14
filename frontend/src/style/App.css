@@ -1,11 +1,19 @@
 #light {
   background-color: rgb(183, 196, 207);
   color: brown;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 #dark {
   background-color: #242424;
   color: azure;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 .switch {
