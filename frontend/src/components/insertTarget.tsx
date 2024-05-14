@@ -2,7 +2,6 @@ import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
-import { Alert } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/insertTarget.css'
 
