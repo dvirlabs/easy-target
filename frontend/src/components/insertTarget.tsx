@@ -1,7 +1,6 @@
 import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/insertTarget.css'
 
