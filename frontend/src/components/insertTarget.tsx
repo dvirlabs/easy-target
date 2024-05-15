@@ -61,18 +61,6 @@ const InsertTarget = () => {
           onKeyDown={handleKeyDown}
           />
         <Button className = 'insert-target' onClick={handleSubmit}>Submit</Button>
-          {/* {error && !responseData && (
-          <div className='error'>
-            <p>{error}</p>
-            </div>
-          )}
-        {responseData && !error && (
-          <div className='response-data'>
-            <h2>Response Data</h2>                    
-            <p>{JSON.stringify(responseData)}</p>
-          </div>
-          // <Alert severity="success" variant="filled">Target added succesfuly</Alert>
-        )} */}
     </div>
   );
 };
