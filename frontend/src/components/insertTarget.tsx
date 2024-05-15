@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/target.css'
 import { addTarget } from '../services/target.service';
 import CustomInput from './customInput';
+import eventsBus from '../import-things/eventBus';
 
 
 const InsertTarget = () => {
@@ -23,6 +24,7 @@ const InsertTarget = () => {
 
       // Show success message
       toastSuccess(`Target ${ipValue}:${portValue} added successfully`);
+      eventsBus.publish('targetAdded');
 
       // Reset input values
       setInputValue('');
