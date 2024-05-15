@@ -21,7 +21,7 @@ const InsertTarget = () => {
       const data = await addTarget(ipValue, portValue);
 
       // Show success message
-      toastSuccess('Target added successfully');
+      toastSuccess(`Target ${ipValue}:${portValue} added successfully`);
 
       // Reset input values
       setInputValue('');

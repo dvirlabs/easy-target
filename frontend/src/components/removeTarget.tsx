@@ -21,7 +21,7 @@ const RemoveTarget = () => {
       const data = await removeTarget(ipValue, portValue);
 
       // Show success message
-      toastSuccess('Target removed successfully')
+      toastSuccess(`Target ${ipValue}:${portValue} removed successfully`)
 
       // Reset error state
       setError(null);
