@@ -43,29 +43,30 @@ const RemoveTarget = () => {
   };
 
   return (
-    <div className='target-container'>
-      <CustomInput 
+    <div className='remove-target'>
+      <input
+        type="text"
         value={ipValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Insert IP"
+        className='fileds'
         onKeyDown={handleKeyDown}
       />
-
-      <CustomInput 
+      <input
+        type="text"
         value={portValue}
         onChange={(e) => setPortValue(e.target.value)}
         placeholder="Insert Port"
+        className='fileds'
         onKeyDown={handleKeyDown}
       />
-      
-      <Button className='target-container' onClick={handleSubmit}>Submit</Button>
-      {error && (
+      <Button className='remove-target' onClick={handleSubmit}>Submit</Button>
+      {error && !responseData && (
         <div className='error'>
           <p>{error}</p>
-        </div>
-      )}
-
-      {responseData && (
+          </div>
+        )}
+      {responseData && !error && (
         <div className='response-data'>
           <h2>Response Data</h2>
           <p>{JSON.stringify(responseData)}</p>
