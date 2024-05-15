@@ -2,8 +2,9 @@ import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../style/removeTarget.css'
+import '../style/target.css'
 import { removeTarget } from '../services/target.service';
+import CustomInput from './customInput';
 
 const RemoveTarget = () => {
   const [ipValue, setInputValue] = useState('');
@@ -43,21 +44,18 @@ const RemoveTarget = () => {
   };
 
   return (
-    <div className='remove-target'>
-      <input
-        type="text"
+    <div className='target-container'>
+      <CustomInput 
         value={ipValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Insert IP"
-        className='fileds'
         onKeyDown={handleKeyDown}
       />
-      <input
-        type="text"
+
+      <CustomInput 
         value={portValue}
         onChange={(e) => setPortValue(e.target.value)}
         placeholder="Insert Port"
-        className='fileds'
         onKeyDown={handleKeyDown}
       />
       <Button className='remove-target' onClick={handleSubmit}>Submit</Button>
