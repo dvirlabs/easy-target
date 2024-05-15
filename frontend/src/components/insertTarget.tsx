@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/insertTarget.css'
+import { addTarget } from '../services/target.service';
 
 
 const InsertTarget = () => {
@@ -16,25 +17,21 @@ const InsertTarget = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_IP}/add_target`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ target_ip: ipValue, port: portValue }),
-      });
+      // Call addTarget function instead of using fetch
+      const data = await addTarget(ipValue, portValue);
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
+      // Show success message
+      toastSuccess('Target added successfully');
 
-      const data = await response.json();
-      toastSuccess('Target added succesfuly');
-      setResponseData(data);
+      // Reset input values
       setInputValue('');
       setPortValue('');
+
+      // Set response data if needed
+      setResponseData(data);
     } catch (error) {
-      toastError('An error occurred  while fetching data.');
+      // Handle error
+      toastError('An error occurred while adding the target.');
       setResponseData(null);
     }
   };

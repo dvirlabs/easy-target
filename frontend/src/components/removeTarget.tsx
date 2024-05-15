@@ -2,6 +2,7 @@ import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/removeTarget.css'
+import { removeTarget } from '../services/target.service';
 
 const RemoveTarget = () => {
   const [ipValue, setInputValue] = useState('');
@@ -11,25 +12,21 @@ const RemoveTarget = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_IP}/remove_target`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ target_ip: ipValue, port: portValue }),
-      });
+      // Call removeTarget function instead of using fetch
+      const data = await removeTarget(ipValue, portValue);
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-
-      const data = await response.json();
-      setResponseData(data);
+      // Reset error state
       setError(null);
+
+      // Set response data
+      setResponseData(data);
+
+      // Reset input values
       setInputValue('');
       setPortValue('');
     } catch (error) {
-      setError('An error occurred while fetching data.');
+      // Handle error
+      setError('An error occurred while removing the target.');
       setResponseData(null);
     }
   };
