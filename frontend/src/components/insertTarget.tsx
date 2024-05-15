@@ -2,8 +2,9 @@ import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../style/insertTarget.css'
+import '../style/target.css'
 import { addTarget } from '../services/target.service';
+import CustomInput from './customInput';
 
 
 const InsertTarget = () => {
@@ -43,23 +44,20 @@ const InsertTarget = () => {
   };
 
   return (
-    <div className='insert-target'>
-        <input
-          type="text"
-          value={ipValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Insert IP"
-          className='fileds'
-          onKeyDown={handleKeyDown}
-        />
-        <input
-          type="text"
-          value={portValue}
-          onChange={(e) => setPortValue(e.target.value)}
-          placeholder="Insert Port"
-          className='fileds'
-          onKeyDown={handleKeyDown}
-          />
+    <div className='target-container'>
+      <CustomInput 
+        value={ipValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="Insert IP"
+        onKeyDown={handleKeyDown}
+      />
+
+      <CustomInput 
+        value={portValue}
+        onChange={(e) => setPortValue(e.target.value)}
+        placeholder="Insert Port"
+        onKeyDown={handleKeyDown}
+      />
         <Button className = 'insert-target' onClick={handleSubmit}>Submit</Button>
     </div>
   );
