@@ -12,8 +12,8 @@ const InsertTarget = () => {
   const [responseData, setResponseData] = useState(null);
 
   const toastSuccess = (text: string) => toast.success(text);
-  const toastInfo = (text: string) => toast.info(text);
   const toastError = (text: string) => toast.error(text);
+  const toastInfo = (text: string) => toast.info(text);
 
   const handleSubmit = async () => {
     try {
