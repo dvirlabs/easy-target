@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react';
-import axios from 'axios';
 import '../style/targetsWindow.css';
 import { fetchTargetData } from '../services/target.service'
 
