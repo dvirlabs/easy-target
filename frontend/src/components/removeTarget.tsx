@@ -1,5 +1,6 @@
 import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/removeTarget.css'
 import { removeTarget } from '../services/target.service';
@@ -10,23 +11,27 @@ const RemoveTarget = () => {
   const [responseData, setResponseData] = useState(null);
   const [error, setError] = useState<string | null>(null);
 
+  const toastSuccess = (text: string) => toast.success(text);
+  const toastInfo = (text: string) => toast.info(text);
+  const toastError = (text: string) => toast.error(text);
+
   const handleSubmit = async () => {
     try {
       // Call removeTarget function instead of using fetch
       const data = await removeTarget(ipValue, portValue);
 
+      // Show success message
+      toastSuccess('Target removed successfully')
+
       // Reset error state
       setError(null);
-
-      // Set response data
-      setResponseData(data);
 
       // Reset input values
       setInputValue('');
       setPortValue('');
     } catch (error) {
       // Handle error
-      setError('An error occurred while removing the target.');
+      toastError('An error occurred while removing the target.');
       setResponseData(null);
     }
   };

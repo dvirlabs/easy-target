@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const serverURL = process.env.REACT_APP_SERVER_IP;
 
+// For load targets component
 export const fetchTargetData = async () => {
   try {
     const res = await axios.get(serverURL + '/get_targets');
@@ -11,6 +12,7 @@ export const fetchTargetData = async () => {
   }
 };
 
+// For insert targets component
 export const addTarget = async (ip: string, port: string) => {
   try {
     const res = await axios.post(
@@ -30,6 +32,7 @@ export const addTarget = async (ip: string, port: string) => {
   }
 };
 
+// For remove targets component
 export const removeTarget = async (ip: string, port: string) => {
   try {
     const res = await axios.delete(
