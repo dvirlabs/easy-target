@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 const serverURL = process.env.REACT_APP_SERVER_IP;
 
@@ -21,14 +21,11 @@ export const addTarget = async (ip: string, port: string) => {
       { headers: { 'Content-Type': 'application/json' } }
     );
 
-    // Check if response status is not in the 2xx range
-    if (res.status < 200 || res.status >= 300) {
-      throw new Error('Failed to add target');
-    }
-
     return res.data;
   } catch (error) {
-    throw new Error('Failed to add target');
+    const err = error as AxiosError;
+    console.log(err.response?.data);
+    throw new Error(err.response?.data as string);
   }
 };
 
@@ -39,11 +36,6 @@ export const removeTarget = async (ip: string, port: string) => {
       `${serverURL}/remove_target`,
       { data: { target_ip: ip, port }, headers: { 'Content-Type': 'application/json' } }
     );
-
-    // Check if response status is not in the 2xx range
-    if (res.status < 200 || res.status >= 300) {
-      throw new Error('Failed to remove target');
-    }
 
     return res.data;
   } catch (error) {
