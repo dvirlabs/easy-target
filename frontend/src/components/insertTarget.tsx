@@ -36,7 +36,7 @@ const InsertTarget = () => {
 
       //fire event
       targetAddedEvent();
-    } catch (error) {
+    } catch (error: any) {
       // Handle error
       customToast("An error occurred while adding the target.", ToastType.Error);
       setResponseData(null);
