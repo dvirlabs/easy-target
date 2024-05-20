@@ -1,21 +1,23 @@
 import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/target.css'
 import { addTarget } from '../services/target.service';
 import CustomInput from './customInput';
-import eventsBus from '../import-things/eventBus';
-
+import EventEmitter from '../utils/eventEmitter';
+import {customToast} from '../utils/toasts';
+import {ToastType} from '../utils/types';
 
 const InsertTarget = () => {
   const [ipValue, setInputValue] = useState('');
   const [portValue, setPortValue] = useState('');
   const [responseData, setResponseData] = useState(null);
 
-  const toastSuccess = (text: string) => toast.success(text);
-  const toastError = (text: string) => toast.error(text);
-  const toastInfo = (text: string) => toast.info(text);
+  const targetAddedEvent = () => {
+    setTimeout(()=>{
+      EventEmitter.emit("TargetAdded", {});
+    },1000);
+  }
 
   const handleSubmit = async () => {
     try {
@@ -23,18 +25,20 @@ const InsertTarget = () => {
       const data = await addTarget(ipValue, portValue);
 
       // Show success message
-      toastSuccess(`Target ${ipValue}:${portValue} added successfully`);
-      eventsBus.publish('targetAdded');
-
+      customToast(`Target ${ipValue}:${portValue} added successfully`, ToastType.Success);
+      
       // Reset input values
       setInputValue('');
       setPortValue('');
 
       // Set response data if needed
       setResponseData(data);
+
+      //fire event
+      targetAddedEvent();
     } catch (error) {
       // Handle error
-      toastError('An error occurred while adding the target.');
+      customToast("An error occurred while adding the target.", ToastType.Error);
       setResponseData(null);
     }
   };

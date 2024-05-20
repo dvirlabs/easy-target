@@ -9,7 +9,6 @@ import { DarkModeSVG, LightModeSVG } from './import-things';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 export const ThemeContext = createContext({
   theme: "light",
   toggleTheme: () => { },
@@ -28,6 +27,7 @@ function App() {
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
+
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <ToastContainer

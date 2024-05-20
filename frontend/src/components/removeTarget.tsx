@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/target.css'
 import { removeTarget } from '../services/target.service';
 import CustomInput from './customInput';
-import eventsBus from '../import-things/eventBus';
 
 const RemoveTarget = () => {
   const [ipValue, setInputValue] = useState('');
@@ -23,8 +22,7 @@ const RemoveTarget = () => {
       const data = await removeTarget(ipValue, portValue);
 
       // Show success message
-      toastSuccess(`Target ${ipValue}:${portValue} removed successfully`)
-      eventsBus.publish('targetRemoved');
+      toastSuccess(`Target ${ipValue}:${portValue} removed successfully`);
 
       // Reset error state
       setError(null);
