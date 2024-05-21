@@ -5,5 +5,6 @@ export enum ToastType {
 }
 
 export enum EventType {
-    
+    TargetAdded = "TargetAdded",
+    TargetRemoved = "TargetRemoved"
 }

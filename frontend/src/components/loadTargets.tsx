@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import '../style/targetsWindow.css';
 import { fetchTargetData } from '../services/target.service'
 import EventEmitter from '../utils/eventEmitter';
+import { EventType } from '../utils/types';
 
 const LoadTargets = () => {
   const [data, setData] = useState<any>(null); // Adjust type here
@@ -24,7 +25,7 @@ const LoadTargets = () => {
   },[]);
 
   useEffect(()=>{
-    const listener = EventEmitter.addListener("TargetAdded",fetchData);
+    const listener = EventEmitter.addListener(EventType.TargetAdded, fetchData);
     return () => listener.remove();
   },[]);
 

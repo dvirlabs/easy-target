@@ -6,18 +6,18 @@ import { addTarget } from '../services/target.service';
 import CustomInput from './customInput';
 import EventEmitter from '../utils/eventEmitter';
 import { customToast } from '../utils/toasts';
-import { ToastType } from '../utils/types';
+import { ToastType, EventType } from '../utils/types';
 
 const InsertTarget = () => {
   const [ipValue, setInputValue] = useState('');
   const [portValue, setPortValue] = useState('');
   const [responseData, setResponseData] = useState(null);
 
-  const targetAddedEvent = () => {
-    setTimeout(()=>{
-      EventEmitter.emit("TargetAdded", {});
-    },1300);
-  };
+  // const targetAddedEvent = () => {
+  //   setTimeout(()=>{
+  //     EventEmitter.emit("TargetAdded", {});
+  //   },1300);
+  // };
 
   const handleSubmit = async () => {
     try {
@@ -29,7 +29,7 @@ const InsertTarget = () => {
       setPortValue('');
       setResponseData(data);
       //fire event
-      targetAddedEvent();
+      EventEmitter.emit(EventType.TargetAdded, {});
     } catch (error: any) {
       // Handle error
       customToast("An error occurred while adding the target.", ToastType.Error);
