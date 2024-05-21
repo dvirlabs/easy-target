@@ -13,11 +13,11 @@ const InsertTarget = () => {
   const [portValue, setPortValue] = useState('');
   const [responseData, setResponseData] = useState(null);
 
-  // const targetAddedEvent = () => {
-  //   setTimeout(()=>{
-  //     EventEmitter.emit("TargetAdded", {});
-  //   },1300);
-  // };
+  const targetAddedEvent = () => {
+    setTimeout(()=>{
+      EventEmitter.emit(EventType.TargetAdded, {});
+    },1300);
+  };
 
   const handleSubmit = async () => {
     try {

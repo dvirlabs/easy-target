@@ -3,6 +3,7 @@ import '../style/targetsWindow.css';
 import { fetchTargetData } from '../services/target.service'
 import EventEmitter from '../utils/eventEmitter';
 import { EventType } from '../utils/types';
+import SyncLoader from 'react-spinners/SyncLoader';
 
 const LoadTargets = () => {
   const [data, setData] = useState<any>(null); // Adjust type here
@@ -29,7 +30,7 @@ const LoadTargets = () => {
     return () => listener.remove();
   },[]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <SyncLoader className='targets-window-loading' color="orange" margin={7} size={20} />;
   if (error) return <div>Error: {error.message}</div>;
 
   return (

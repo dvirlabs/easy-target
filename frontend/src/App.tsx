@@ -6,8 +6,9 @@ import { titles } from './const';
 import { createContext, useEffect, useState } from 'react';
 import ReactSwitch from 'react-switch';
 import { DarkModeSVG, LightModeSVG } from './import-things';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Bounce, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SyncLoader from 'react-spinners/SyncLoader';
 
 export const ThemeContext = createContext({
   theme: "light",
