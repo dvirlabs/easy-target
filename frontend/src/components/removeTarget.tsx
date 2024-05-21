@@ -6,7 +6,7 @@ import { removeTarget } from '../services/target.service';
 import CustomInput from './customInput';
 import EventEmitter from '../utils/eventEmitter';
 import { customToast } from '../utils/toasts';
-import { ToastType } from '../utils/types';
+import {EventType, ToastType} from '../utils/types';
 
 const RemoveTarget = () => {
   const [ipValue, setInputValue] = useState('');
@@ -15,7 +15,7 @@ const RemoveTarget = () => {
 
   const targetRemovedEvent = () => {
     setTimeout(() => {
-      EventEmitter.emit("TargetRemoved", {});
+      EventEmitter.emit(EventType.TargetRemoved, 'this is a test');
     }, 1300);
   };
 

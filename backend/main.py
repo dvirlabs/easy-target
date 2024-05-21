@@ -29,7 +29,7 @@ async def add_target(data: dict):
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid IP address format")
     
-    targets_file = "prometheus-app/test.yml"
+    targets_file = "../prometheus-app/test.yml"
 
     # Update prometheus.yml with the new target
     with open(targets_file, "a") as f:
@@ -50,7 +50,7 @@ async def remove_target(data: dict):
         raise HTTPException(status_code=400, detail="Invalid IP address format")
 
     target_to_remove = f"'{target_ip}:{port}'"
-    targets_file = "prometheus-app/test.yml"
+    targets_file = "../prometheus-app/test.yml"
 
     # Read the original targets.yml file
     with open(targets_file, "r") as f:
