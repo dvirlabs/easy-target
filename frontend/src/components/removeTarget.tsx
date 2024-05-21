@@ -1,38 +1,38 @@
 import { KeyboardEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/target.css'
 import { removeTarget } from '../services/target.service';
 import CustomInput from './customInput';
+import EventEmitter from '../utils/eventEmitter';
+import { customToast } from '../utils/toasts';
+import { ToastType } from '../utils/types';
 
 const RemoveTarget = () => {
   const [ipValue, setInputValue] = useState('');
   const [portValue, setPortValue] = useState('');
   const [responseData, setResponseData] = useState(null);
-  const [error, setError] = useState<string | null>(null);
 
-  const toastSuccess = (text: string) => toast.success(text);
-  const toastError = (text: string) => toast.error(text);
-  const toastInfo = (text: string) => toast.info(text);
+  const targetRemovedEvent = () => {
+    setTimeout(() => {
+      EventEmitter.emit("TargetRemoved", {});
+    }, 1300);
+  };
 
   const handleSubmit = async () => {
     try {
       // Call removeTarget function instead of using fetch
       const data = await removeTarget(ipValue, portValue);
 
-      // Show success message
-      toastSuccess(`Target ${ipValue}:${portValue} removed successfully`);
-
-      // Reset error state
-      setError(null);
-
-      // Reset input values
+      customToast(`Target ${ipValue}:${portValue} removed successfully`, ToastType.Success);
       setInputValue('');
       setPortValue('');
-    } catch (error) {
+      setResponseData(data);
+      //fire event
+      targetRemovedEvent();
+    } catch (error: any) {
       // Handle error
-      toastError('An error occurred while removing the target.');
+      customToast('An error occurred while removing the target.', ToastType.Error);
       setResponseData(null);
     }
   };
@@ -59,17 +59,6 @@ const RemoveTarget = () => {
         onKeyDown={handleKeyDown}
       />
       <Button className='remove-target' onClick={handleSubmit}>Submit</Button>
-      {error && !responseData && (
-        <div className='error'>
-          <p>{error}</p>
-          </div>
-        )}
-      {responseData && !error && (
-        <div className='response-data'>
-          <h2>Response Data</h2>
-          <p>{JSON.stringify(responseData)}</p>
-        </div>
-      )}
     </div>
   );
 };
