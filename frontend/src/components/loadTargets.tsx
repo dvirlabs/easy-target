@@ -39,7 +39,7 @@ const LoadTargets = () => {
     return () => {insertListener.remove(); removeListener.remove();}
   },[]);
 
-  if (loading) return <div className='loader'><SyncLoader className='targets-window-loading' color="orange" margin={7} size={20} />;</div>
+  if (loading) return <div className='loader'><SyncLoader className='targets-window-loading' color="orange" margin={7} size={20} /></div>
   if (error) return <div>Error: {error.message}</div>;
 
   return (
