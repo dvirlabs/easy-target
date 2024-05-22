@@ -6,7 +6,7 @@ import { removeTarget } from '../services/target.service';
 import CustomInput from './customInput';
 import EventEmitter from '../utils/eventEmitter';
 import { customToast } from '../utils/toasts';
-import {EventType, ToastType} from '../utils/types';
+import {EventType, Target, ToastType} from '../utils/types';
 
 const RemoveTarget = () => {
   const [ipValue, setInputValue] = useState('');
@@ -22,6 +22,7 @@ const RemoveTarget = () => {
   const handleSubmit = async () => {
     try {
       // Call removeTarget function instead of using fetch
+      const targetToRemove: Target = {ip: ipValue, port: portValue};
       const data = await removeTarget(ipValue, portValue);
 
       customToast(`Target ${ipValue}:${portValue} removed successfully`, ToastType.Success);
@@ -29,7 +30,7 @@ const RemoveTarget = () => {
       setPortValue('');
       setResponseData(data);
       //fire event
-      targetRemovedEvent();
+      EventEmitter.emit(EventType.TargetRemoved, targetToRemove);
     } catch (error: any) {
       // Handle error
       customToast('An error occurred while removing the target.', ToastType.Error);

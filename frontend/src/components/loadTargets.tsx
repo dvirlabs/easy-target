@@ -29,8 +29,13 @@ const LoadTargets = () => {
       setData(prevData => [...prevData, targetToString(newTarget)]);
     }
 
-    const listener = EventEmitter.addListener(EventType.TargetAdded, handleNewTarget);
-    return () => listener.remove();
+    const handleRemoveTarget = async (targetToRemove: Target) => {
+      setData(prevData => prevData.filter((target: string) => !target.includes(targetToString(targetToRemove))));
+    }
+
+    const insertListener = EventEmitter.addListener(EventType.TargetAdded, handleNewTarget);
+    const removeListener = EventEmitter.addListener(EventType.TargetRemoved, handleRemoveTarget);
+    return () => {insertListener.remove(); removeListener.remove();}
   },[]);
 
   if (loading) return <SyncLoader className='targets-window-loading' color="orange" margin={7} size={20} />;
