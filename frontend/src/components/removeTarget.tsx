@@ -13,12 +13,6 @@ const RemoveTarget = () => {
   const [portValue, setPortValue] = useState('');
   const [responseData, setResponseData] = useState(null);
 
-  const targetRemovedEvent = () => {
-    setTimeout(() => {
-      EventEmitter.emit(EventType.TargetRemoved, 'this is a test');
-    }, 1300);
-  };
-
   const handleSubmit = async () => {
     try {
       // Call removeTarget function instead of using fetch
