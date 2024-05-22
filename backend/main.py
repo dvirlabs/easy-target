@@ -25,6 +25,14 @@ def check_target_exists(target_ip, port):
                 return True
     return False
 
+def validate_port(port: str):
+    try:
+        port_num = int(port)
+        if port_num < 1 or port_num > 65535:
+            raise ValueError
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid port: must be between 1 and 65535")
+
 @app.post("/add_target")
 async def add_target(data: dict): 
     # Validate IP address format
@@ -33,6 +41,7 @@ async def add_target(data: dict):
         port = data.get('port')
         from ipaddress import ip_address
         ip_address(target_ip)
+        validate_port(port)
         int(port)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid IP address format")
@@ -56,6 +65,7 @@ async def remove_target(data: dict):
         port = data.get('port')
         from ipaddress import ip_address
         ip_address(target_ip)
+        validate_port(port)
         int(port)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid IP address format")

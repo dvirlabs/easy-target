@@ -25,6 +25,7 @@ const CustomInput: FC<ICustomInput> = ({
         onChange={(e) => onChange(e)}
         placeholder={placeholder}
         className={className}
+        required
         onKeyDown={(e) => onKeyDown(e)}
       />
   );
