@@ -16,6 +16,14 @@ app.add_middleware(
 
 os.chdir = ("..")
 
+def check_target_exists(target_ip, port):
+
+    targets_file = "prometheus-app/targets.yml"
+    with open(targets_file, "r") as f:
+        for line in f:
+            if f"'{target_ip}:{port}'" in line.strip():
+                return True
+    return False
 
 @app.post("/add_target")
 async def add_target(data: dict): 
@@ -28,8 +36,11 @@ async def add_target(data: dict):
         int(port)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid IP address format")
+        # Check if target already exists
+    if check_target_exists(target_ip, port):
+        raise HTTPException(status_code=409, detail=f"Target '{target_ip}:{port}' already exists")
     
-    targets_file = "prometheus-app/test.yml"
+    targets_file = "prometheus-app/targets.yml"
 
     # Update prometheus.yml with the new target
     with open(targets_file, "a") as f:
@@ -50,7 +61,11 @@ async def remove_target(data: dict):
         raise HTTPException(status_code=400, detail="Invalid IP address format")
 
     target_to_remove = f"'{target_ip}:{port}'"
-    targets_file = "prometheus-app/test.yml"
+    targets_file = "prometheus-app/targets.yml"
+    
+    # Check if target exists before attempting removal
+    if not check_target_exists(target_ip, port):
+        raise HTTPException(status_code=404, detail=f"Target '{target_ip}:{port}' not found")
 
     # Read the original targets.yml file
     with open(targets_file, "r") as f:

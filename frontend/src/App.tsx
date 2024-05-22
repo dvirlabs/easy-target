@@ -8,7 +8,6 @@ import ReactSwitch from 'react-switch';
 import { DarkModeSVG, LightModeSVG } from './assets';
 import { Bounce, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import SyncLoader from 'react-spinners/SyncLoader';
 
 export const ThemeContext = createContext({
   theme: "light",
