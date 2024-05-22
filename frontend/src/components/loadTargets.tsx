@@ -26,16 +26,10 @@ const LoadTargets = () => {
     fetchData();
 
     const handleNewTarget = async (newTarget: Target) => {
-      if (data) {
-        data.push(targetToString(newTarget));
-        setData(data);
-      }
-      else {
-        setData([targetToString(newTarget)]);
-      }
+      setData(prevData => [...prevData, targetToString(newTarget)]);
     }
 
-    const listener = EventEmitter.addListener(EventType.TargetAdded, (newTarget: Target) => handleNewTarget(newTarget));
+    const listener = EventEmitter.addListener(EventType.TargetAdded, handleNewTarget);
     return () => listener.remove();
   },[]);
 
