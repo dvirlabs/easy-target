@@ -29,7 +29,7 @@ async def add_target(data: dict):
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid IP address format")
     
-    targets_file = "../prometheus-app/test.yml"
+    targets_file = "prometheus-app/test.yml"
 
     # Update prometheus.yml with the new target
     with open(targets_file, "a") as f:

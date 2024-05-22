@@ -14,6 +14,3 @@ export interface Target {
     port: string
 }
 
-export function targetToString (target: Target) {
-    return `${target.ip}:${target.port}`;
-}

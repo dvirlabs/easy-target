@@ -1,11 +1,11 @@
 import './style/App.css'
 import './style/toggleTheme.css'
-import * as Components from './import-things';
+import * as Components from './assets';
 import Title from './components/title';
 import { titles } from './const';
 import { createContext, useEffect, useState } from 'react';
 import ReactSwitch from 'react-switch';
-import { DarkModeSVG, LightModeSVG } from './import-things';
+import { DarkModeSVG, LightModeSVG } from './assets';
 import { Bounce, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SyncLoader from 'react-spinners/SyncLoader';

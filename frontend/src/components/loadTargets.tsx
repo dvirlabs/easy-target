@@ -2,7 +2,8 @@ import {useState, useEffect} from 'react';
 import '../style/targetsWindow.css';
 import { fetchTargetData } from '../services/target.service'
 import EventEmitter from '../utils/eventEmitter';
-import {EventType, Target, targetToString} from '../utils/types';
+import { EventType, Target } from '../utils/types';
+import { targetToString } from '../utils/utils';
 import SyncLoader from 'react-spinners/SyncLoader';
 
 const LoadTargets = () => {
