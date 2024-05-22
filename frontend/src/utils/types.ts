@@ -5,5 +5,12 @@ export enum ToastType {
 }
 
 export enum EventType {
-    
+    TargetAdded = "TargetAdded",
+    TargetRemoved = "TargetRemoved"
 }
+
+export interface Target {
+    ip: string,
+    port: string
+}
+

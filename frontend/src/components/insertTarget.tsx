@@ -5,37 +5,32 @@ import '../style/target.css'
 import { addTarget } from '../services/target.service';
 import CustomInput from './customInput';
 import EventEmitter from '../utils/eventEmitter';
-import {customToast} from '../utils/toasts';
-import {ToastType} from '../utils/types';
+import { customToast } from '../utils/toasts';
+import {ToastType, EventType, Target} from '../utils/types';
 
 const InsertTarget = () => {
   const [ipValue, setInputValue] = useState('');
   const [portValue, setPortValue] = useState('');
   const [responseData, setResponseData] = useState(null);
 
-  const targetAddedEvent = () => {
-    setTimeout(()=>{
-      EventEmitter.emit("TargetAdded", {});
-    },1000);
-  }
+  // const targetAddedEvent = () => {
+  //   setTimeout(()=>{
+  //     EventEmitter.emit(EventType.TargetAdded, 'this is a test');
+  //   },1300);
+  // };
 
   const handleSubmit = async () => {
     try {
       // Call addTarget function instead of using fetch
-      const data = await addTarget(ipValue, portValue);
+      const newTarget: Target = {ip: ipValue, port: portValue};
+      const data = await addTarget(newTarget.ip, newTarget.port);
 
-      // Show success message
       customToast(`Target ${ipValue}:${portValue} added successfully`, ToastType.Success);
-      
-      // Reset input values
       setInputValue('');
       setPortValue('');
-
-      // Set response data if needed
       setResponseData(data);
-
       //fire event
-      targetAddedEvent();
+      EventEmitter.emit(EventType.TargetAdded, newTarget);
     } catch (error: any) {
       // Handle error
       customToast("An error occurred while adding the target.", ToastType.Error);
