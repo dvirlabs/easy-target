@@ -27,7 +27,8 @@ const InsertTarget = () => {
       EventEmitter.emit(EventType.TargetAdded, newTarget);
     } catch (error: any) {
       // Handle error
-      customToast("An error occurred while adding the target.", ToastType.Error);
+      const errorMessage = error.message || 'An error occurred while removing the target.';
+      customToast(errorMessage, ToastType.Error);
       setResponseData(null);
     }
   };

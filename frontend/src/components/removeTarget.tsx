@@ -27,7 +27,8 @@ const RemoveTarget = () => {
       EventEmitter.emit(EventType.TargetRemoved, targetToRemove);
     } catch (error: any) {
       // Handle error
-      customToast('An error occurred while removing the target.', ToastType.Error);
+      const errorMessage = error.message || 'An error occurred while removing the target.';
+      customToast(errorMessage, ToastType.Error);
       setResponseData(null);
     }
   };

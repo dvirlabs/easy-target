@@ -23,9 +23,14 @@ export const addTarget = async (ip: string, port: string) => {
 
     return res.data;
   } catch (error) {
-    const err = error as AxiosError;
-    console.log(err.response?.data);
-    throw new Error(err.response?.data as string);
+    if (axios.isAxiosError(error) && error.response) {
+      const err = error as AxiosError;
+      console.log(err.response?.data);
+      const errMsg = error.response.data?.detail || 'An error occurred';
+      throw new Error(errMsg);
+    } else {
+      throw new Error('An unexpected error occurred');
+    }
   }
 };
 
@@ -39,6 +44,13 @@ export const removeTarget = async (ip: string, port: string) => {
 
     return res.data;
   } catch (error) {
-    throw new Error('Failed to remove target');
+    if (axios.isAxiosError(error) && error.response) {
+      const err = error as AxiosError;
+      console.log(err.response?.data);
+      const errMsg = error.response.data?.detail || 'An error occurred';
+      throw new Error(errMsg);
+    } else {
+      throw new Error('An unexpected error occurred');
+    }
   }
 };
