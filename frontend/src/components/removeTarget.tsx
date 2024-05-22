@@ -26,11 +26,9 @@ const RemoveTarget = () => {
       //fire event
       EventEmitter.emit(EventType.TargetRemoved, targetToRemove);
     } catch (error: any) {
-      if (error.response && error.status === 404) {
-        customToast('Target not found.', ToastType.Error);
-      }
       // Handle error
-      customToast('An error occurred while removing the target.', ToastType.Error);
+      const errorMessage = error.message || 'An error occurred while removing the target.';
+      customToast(errorMessage, ToastType.Error);
       setResponseData(null);
     }
   };
