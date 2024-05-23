@@ -5,6 +5,7 @@ import EventEmitter from '../utils/eventEmitter';
 import { EventType, Target } from '../utils/types';
 import { targetToString } from '../utils/utils';
 import SyncLoader from 'react-spinners/SyncLoader';
+import { MDBInputGroup, MDBInput, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 
 const LoadTargets = () => {
   const [data, setData] = useState<string[]>([]); // Adjust type here
@@ -50,17 +51,20 @@ const LoadTargets = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-      <div className='targets-window'>
-        <h1 className='targets-window-title'>Targets:</h1>
-        <div className='search-box'>
-          <input
+    <div className='targets-window'>
+      <h1 className='targets-window-title'>Targets:</h1>
+      <div className='targets'>
+      <div className='search-box-container'>
+        <MDBInputGroup>
+          <MDBInput
+            className='search-box'
             type='text'
             placeholder='Search targets...'
             value={searchQuery}
             onChange={handleSearchInputChange}
           />
+        </MDBInputGroup>
       </div>
-      <div className='targets'>
         {filteredTargets.map((target, index) => (
           <pre className='targets' key={index}>
             {JSON.stringify(target, null, 2)}
