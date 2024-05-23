@@ -10,6 +10,7 @@ const LoadTargets = () => {
   const [data, setData] = useState<string[]>([]); // Adjust type here
   const [loading, setLoading] = useState<boolean>(true); // Adjust type here
   const [error, setError] = useState<Error | null>(null); // Adjust type here
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
 
   useEffect(()=>{
@@ -39,16 +40,34 @@ const LoadTargets = () => {
     return () => {insertListener.remove(); removeListener.remove();}
   },[]);
 
+  const filteredTargets = data.filter(target => target.includes(searchQuery));
+
+    const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
   if (loading) return <div className='loader'><SyncLoader className='targets-window-loading' color="orange" margin={7} size={20} /></div>
   if (error) return <div>Error: {error.message}</div>;
 
   return (
       <div className='targets-window'>
         <h1 className='targets-window-title'>Targets:</h1>
-        <div className='targets'>
-          <pre className='targets'>{JSON.stringify(data, null, 2)}</pre>
-        </div>
+        <div className='search-box'>
+          <input
+            type='text'
+            placeholder='Search targets...'
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+          />
       </div>
+      <div className='targets'>
+        {filteredTargets.map((target, index) => (
+          <pre className='targets' key={index}>
+            {JSON.stringify(target, null, 2)}
+          </pre>
+        ))}
+      </div>
+    </div>
   );
 };
 
