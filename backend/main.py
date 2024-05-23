@@ -1,7 +1,11 @@
 from fastapi import FastAPI, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-import os
+from fastapi.responses import Response
+import pandas as pd
 import requests
+import logging
+import os
+import io
 
 
 app = FastAPI()
@@ -16,6 +20,7 @@ app.add_middleware(
 
 os.chdir = ("..")
 
+######## Check if target exsist in targets.yml file ########
 def check_target_exists(target_ip, port):
 
     targets_file = "prometheus-app/targets.yml"
@@ -25,6 +30,7 @@ def check_target_exists(target_ip, port):
                 return True
     return False
 
+######## Validate that the port is between 1 to 65535 ########
 def validate_port(port: str):
     try:
         port_num = int(port)
@@ -33,6 +39,7 @@ def validate_port(port: str):
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid port: must be between 1 and 65535")
 
+######## Api request to insert new target to targets.yml file ########
 @app.post("/add_target")
 async def add_target(data: dict): 
     # Validate IP address format
@@ -57,6 +64,7 @@ async def add_target(data: dict):
 
     return {f"Target {target_ip} added successfully!"}
 
+######## Api request to remove exsisting target from targets.yml file ########
 @app.delete("/remove_target")
 async def remove_target(data: dict):
     # Validate IP address format
@@ -90,7 +98,7 @@ async def remove_target(data: dict):
 
     return {f"Target {target_ip} removed successfully!"}
 
-
+######## Api request that create an Api request to Prometheus and get the targets from it ########
 @app.get("/get_targets")
 async def get_prometheus_targets():    
     prometheus_url = "http://localhost:9090/api/v1/targets"
@@ -117,6 +125,29 @@ async def get_prometheus_targets():
         # If an exception occurs, raise an HTTPException with status code 500 and the exception message
         raise HTTPException(status_code=500, detail=str(e))
     
+######## Api request to export the exsisting targets into a targets.xlsx file ########    
+@app.get("/export_targets")
+async def export_targets():
+    try:
+        # Fetch targets data
+        targets = await get_prometheus_targets()
+
+        # Convert targets data to DataFrame
+        df = pd.DataFrame(targets, columns=["Target IP"])
+
+        # Convert DataFrame to xlsx file
+        output = io.BytesIO()
+        df.to_excel(output, index=False)
+        output.seek(0)
+
+        # Send xlsx file as response
+        return Response(content=output.getvalue(), media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", headers={"Content-Disposition": "attachment; filename=targets.xlsx"})
+    except Exception as e:
+        logging.exception("An error occurred during export_targets:")
+        raise HTTPException(status_code=500, detail=str(e))
+    
+    
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8000)
+

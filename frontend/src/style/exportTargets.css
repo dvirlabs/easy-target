@@ -1,0 +1,11 @@
+.export-targets {
+    position: relative;
+    width: 100%;
+}
+
+.export-targets button {
+    position: absolute;
+    display: flex;
+    right: 0;
+    margin: 20px;
+}
