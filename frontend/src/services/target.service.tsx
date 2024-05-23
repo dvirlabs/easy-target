@@ -73,3 +73,28 @@ export const exportTargets = async () => {
     throw new Error('An error occurred while exporting targets');
   }
 };
+
+// For add targets from file component
+export const addTargetsFromFile = async (file: File) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const res = await axios.post(
+      `${serverURL}/add_targets_from_file`,
+      formData,
+      { headers: { 'Content-Type': 'multipart/form-data' } }
+    );
+
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      const err = error as AxiosError;
+      console.log(err.response?.data);
+      const errMsg = error.response.data?.detail || 'An error occurred';
+      throw new Error(errMsg);
+    } else {
+      throw new Error('An unexpected error occurred');
+    }
+  }
+};

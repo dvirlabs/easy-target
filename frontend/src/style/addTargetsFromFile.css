@@ -1,0 +1,50 @@
+.add-targets-container {
+    position: absolute;
+    bottom: 220px;
+    right: 0;
+    width: 20%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.header {
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 27px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between; /* Align items on the same line */
+    width: 100%; /* Ensure controls take full width of the container */
+    align-items: center;
+}
+
+.file-input {
+    margin-right: 5px; /* Decrease space between file input and the button */
+    flex-grow: 1; /* Allow file input to take up available space */
+}
+
+.add-targets-button {
+    margin-left: 5px; /* Decrease space between file input and the button */
+}
+
+/* Custom button styles */
+.custom-file-button {
+    background-color: #ffcc00;
+    border-color: #ffcc00;
+    color: black;
+}
+
+.custom-add-button {
+    background-color: #ff8d0b;
+    border-color: #ff8d0b;
+    color: white;
+}
+
+.custom-file-button:hover, .custom-add-button:hover {
+    opacity: 0.8;
+}

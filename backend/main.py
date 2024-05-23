@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
+from fastapi import UploadFile, File
+from typing import List
 import pandas as pd
 import requests
 import logging
@@ -145,6 +147,36 @@ async def export_targets():
     except Exception as e:
         logging.exception("An error occurred during export_targets:")
         raise HTTPException(status_code=500, detail=str(e))
+    
+######## Api request to add targets from file ########
+@app.post("/add_targets_from_file")
+async def add_targets_from_file(file: UploadFile = File(...)):
+    try:
+        # Read uploaded file
+        contents = await file.read()
+
+        # Decode file contents
+        targets_str = contents.decode('utf-8')
+
+        # Split targets by lines and extract each target
+        targets = [line.strip() for line in targets_str.split('\n') if line.strip()]
+
+        # Append each target to targets.yml file
+        targets_file = "prometheus-app/targets.yml"
+        with open(targets_file, "a") as f:
+            for target in targets:
+                f.write(f"\n  - '{target}'")
+
+        return {"message": "Targets added successfully from file"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))    
+
+
+
+
+
+
+
     
     
 if __name__ == "__main__":
