@@ -54,3 +54,22 @@ export const removeTarget = async (ip: string, port: string) => {
     }
   }
 };
+
+// For export targets component
+export const exportTargets = async () => {
+  try {
+    const response = await axios.get(`${serverURL}/export_targets`, {
+      responseType: 'arraybuffer',
+    });
+    const blob = new Blob([response.data]);
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'targets.xlsx');
+    document.body.appendChild(link);
+    link.click();
+  } catch (error) {
+    console.error('Export error:', error);
+    throw new Error('An error occurred while exporting targets');
+  }
+};

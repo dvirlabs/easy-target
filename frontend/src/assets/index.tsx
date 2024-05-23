@@ -6,6 +6,7 @@ export { default as InsertTarget } from '../components/insertTarget';
 export { default as RemoveTarget } from '../components/removeTarget';
 export { default as TargetsWindow } from '../components/loadTargets';
 export { default as EasyTargetLogo } from '../components/easyTargetLogo';
+export { default as ExportTargets } from '../components/exportTargets';
 export { default as MadeBy } from '../components/madeBy';
 
 // Svg
