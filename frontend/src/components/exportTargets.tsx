@@ -13,7 +13,7 @@ const ExportTargets = () => {
 
   return (
     <div className='export-targets'>
-      <Button onClick={handleExport}> Export Targets </Button>
+      <Button variant='success' onClick={handleExport}> Export Targets </Button>
     </div>
   );
 };
