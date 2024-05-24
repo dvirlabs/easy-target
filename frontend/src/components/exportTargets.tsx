@@ -13,6 +13,7 @@ const ExportTargets = () => {
 
   return (
     <div className='export-targets'>
+      <h1> Export Targets to file: </h1>
       <Button variant='success' onClick={handleExport}> Export Targets </Button>
     </div>
   );
