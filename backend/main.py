@@ -1,6 +1,9 @@
 from fastapi import FastAPI, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
+from ipaddress import ip_address
+from fastapi import UploadFile, File
+from typing import List
 import pandas as pd
 import requests
 import logging
@@ -46,7 +49,6 @@ async def add_target(data: dict):
     try:
         target_ip = data.get('target_ip')
         port = data.get('port')
-        from ipaddress import ip_address
         ip_address(target_ip)
         validate_port(port)
         int(port)
@@ -71,7 +73,6 @@ async def remove_target(data: dict):
     try:
         target_ip = data.get('target_ip')
         port = data.get('port')
-        from ipaddress import ip_address
         ip_address(target_ip)
         validate_port(port)
         int(port)
@@ -146,6 +147,41 @@ async def export_targets():
         logging.exception("An error occurred during export_targets:")
         raise HTTPException(status_code=500, detail=str(e))
     
+######## Api request to add targets from file ########
+@app.post("/add_targets_from_file")
+async def add_targets_from_file(file: UploadFile = File(...)):
+    try:
+        contents = await file.read()
+        targets_str = contents.decode('utf-8')
+        targets = [line.strip() for line in targets_str.split('\n') if line.strip()]
+
+        invalid_targets = []
+        valid_targets = []
+        targets_file = "prometheus-app/targets.yml"
+
+        for target in targets:
+            try:
+                target_ip, port = target.split(':')
+                ip_address(target_ip)
+                validate_port(port)
+                if check_target_exists(target_ip, port):
+                    invalid_targets.append(f"Target '{target_ip}:{port}' already exists")
+                else:
+                    valid_targets.append(f"'{target_ip}:{port}'")
+            except ValueError:
+                invalid_targets.append(f"Invalid IP or port: '{target}'")
+
+        if invalid_targets:
+            raise HTTPException(status_code=400, detail={"errors": invalid_targets})
+
+        with open(targets_file, "a") as f:
+            for target in valid_targets:
+                f.write(f"\n  - {target}")
+
+        return {"message": "Targets added successfully from file", "errors": invalid_targets}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
     
 if __name__ == "__main__":
     import uvicorn
