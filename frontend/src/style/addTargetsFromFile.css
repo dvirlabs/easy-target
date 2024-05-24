@@ -48,3 +48,8 @@
 .custom-file-button:hover, .custom-add-button:hover {
     opacity: 0.8;
 }
+
+.custom-add-button:hover {
+    background-color: #ff8d0b;
+    border-color: #ff8d0b;
+}
