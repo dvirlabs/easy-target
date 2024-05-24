@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { addTargetsFromFile } from '../services/target.service';
 import '../style/addTargetsFromFile.css';
+import { customToast } from '../utils/toasts';
+import { ToastType } from '../utils/types';
 
 const AddTargetsFromFile = () => {
-  const [file, setFile] = React.useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files && e.target.files[0];
@@ -14,14 +16,25 @@ const AddTargetsFromFile = () => {
   const handleSubmit = async () => {
     try {
       if (file) {
-        await addTargetsFromFile(file);
-        console.log('Targets added successfully from file');
+        const response = await addTargetsFromFile(file);
+        
+        if (response && response.message) {
+          // Handle success
+          customToast(response.message, ToastType.Success);
+        } else {
+          // Handle unexpected response format
+          console.error('Unexpected response format:', response);
+          customToast('An error occurred while adding targets from file', ToastType.Error);
+        }
+  
         setFile(null);
       } else {
-        console.log('Please select a file');
+        customToast('Please select a file', ToastType.Error);
       }
-    } catch (error) {
-      console.error('Error adding targets from file:', error);
+    } catch (error: any) { // Explicitly cast error to 'any'
+      // Handle Axios errors
+      console.error('Error adding targets from file:', error.message || error);
+      customToast('An error occurred while adding targets from file', ToastType.Error);
     }
   };
 
