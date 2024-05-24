@@ -6,7 +6,8 @@ export enum ToastType {
 
 export enum EventType {
     TargetAdded = "TargetAdded",
-    TargetRemoved = "TargetRemoved"
+    TargetRemoved = "TargetRemoved",
+    FileUploaded = "FileUploaded"
 }
 
 export interface Target {

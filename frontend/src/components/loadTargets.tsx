@@ -5,7 +5,7 @@ import EventEmitter from '../utils/eventEmitter';
 import { EventType, Target } from '../utils/types';
 import { targetToString } from '../utils/utils';
 import SyncLoader from 'react-spinners/SyncLoader';
-import { MDBInputGroup, MDBInput, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
+import { MDBInputGroup, MDBInput } from 'mdb-react-ui-kit';
 
 const LoadTargets = () => {
   const [data, setData] = useState<string[]>([]); // Adjust type here
@@ -36,9 +36,14 @@ const LoadTargets = () => {
       setData(prevData => prevData.filter((target: string) => !target.includes(targetToString(targetToRemove))));
     }
 
+    const handleFileUploaded = () => {
+      alert("test")
+    }
+
     const insertListener = EventEmitter.addListener(EventType.TargetAdded, handleNewTarget);
     const removeListener = EventEmitter.addListener(EventType.TargetRemoved, handleRemoveTarget);
-    return () => {insertListener.remove(); removeListener.remove();}
+    const uploadListener = EventEmitter.addListener(EventType.FileUploaded,handleFileUploaded);
+    return () => {insertListener.remove(); removeListener.remove(); uploadListener.remove();}
   },[]);
 
   const filteredTargets = data.filter(target => target.includes(searchQuery));

@@ -3,7 +3,8 @@ import { Button } from 'react-bootstrap';
 import { addTargetsFromFile } from '../services/target.service';
 import '../style/addTargetsFromFile.css';
 import { customToast } from '../utils/toasts';
-import { ToastType } from '../utils/types';
+import { EventType, ToastType } from '../utils/types';
+import EventEmitter from '../utils/eventEmitter';
 
 const AddTargetsFromFile = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -21,6 +22,7 @@ const AddTargetsFromFile = () => {
         if (response && response.message) {
           // Handle success
           customToast(response.message, ToastType.Success);
+          EventEmitter.emit(EventType.FileUploaded);
         } else {
           // Handle unexpected response format
           console.error('Unexpected response format:', response);
