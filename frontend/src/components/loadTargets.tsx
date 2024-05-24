@@ -36,13 +36,22 @@ const LoadTargets = () => {
       setData(prevData => prevData.filter((target: string) => !target.includes(targetToString(targetToRemove))));
     }
 
-    const handleFileUploaded = () => {
-      alert("test")
-    }
+
+    const handleFileUploaded = async () => {
+      try {
+        await fetchData(); // Fetch updated targets after file upload
+        alert("File uploaded"); // Alert could be replaced with a function to show the updated data
+      } catch (error) {
+        console.error('Error fetching targets after file upload:', error);
+        alert("An error occurred while fetching updated targets");
+      }
+    };
 
     const insertListener = EventEmitter.addListener(EventType.TargetAdded, handleNewTarget);
     const removeListener = EventEmitter.addListener(EventType.TargetRemoved, handleRemoveTarget);
     const uploadListener = EventEmitter.addListener(EventType.FileUploaded,handleFileUploaded);
+
+    
     return () => {insertListener.remove(); removeListener.remove(); uploadListener.remove();}
   },[]);
 
