@@ -167,7 +167,7 @@ async def add_targets_from_file(file: UploadFile = File(...)):
                 if check_target_exists(target_ip, port):
                     invalid_targets.append(f"Target '{target_ip}:{port}' already exists")
                 else:
-                    valid_targets.append(f"'{target_ip}:{port}'")
+                    valid_targets.append(f"  - '{target_ip}:{port}'")  # Adjust format here
             except ValueError:
                 invalid_targets.append(f"Invalid IP or port: '{target}'")
 
@@ -175,8 +175,10 @@ async def add_targets_from_file(file: UploadFile = File(...)):
             raise HTTPException(status_code=400, detail={"errors": invalid_targets})
 
         with open(targets_file, "a") as f:
+            if os.stat(targets_file).st_size > 0:
+                f.write("\n")  # Add newline if file not empty
             for target in valid_targets:
-                f.write(f"\n  - {target}")
+                f.write(target + "\n")  # Write target with newline
 
         return {"message": "Targets added successfully from file", "errors": invalid_targets}
     except Exception as e:
