@@ -38,13 +38,7 @@ const LoadTargets = () => {
 
 
     const handleFileUploaded = async () => {
-      try {
-        await fetchData(); // Fetch updated targets after file upload
-        alert("File uploaded"); // Alert could be replaced with a function to show the updated data
-      } catch (error) {
-        console.error('Error fetching targets after file upload:', error);
-        alert("An error occurred while fetching updated targets");
-      }
+      await fetchData()
     };
 
     const insertListener = EventEmitter.addListener(EventType.TargetAdded, handleNewTarget);
