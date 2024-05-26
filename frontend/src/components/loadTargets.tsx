@@ -36,7 +36,6 @@ const LoadTargets = () => {
       setData(prevData => prevData.filter((target: string) => !target.includes(targetToString(targetToRemove))));
     };
 
-
     const handleFileUploaded = async () => {
       await fetchData()
     };
@@ -49,9 +48,11 @@ const LoadTargets = () => {
     return () => {insertListener.remove(); removeListener.remove(); uploadListener.remove();}
   },[]);
 
-  const filteredTargets = data.filter(target => target.includes(searchQuery));
-
-    const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  console.log(data);
+  
+  const filteredTargets = data?.filter(target => target.includes(searchQuery));
+  
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 

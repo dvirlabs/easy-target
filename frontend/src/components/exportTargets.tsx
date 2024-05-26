@@ -14,7 +14,10 @@ const ExportTargets = () => {
 
   return (
     <div>
-      <Button variant='success' onClick={handleExport}><span className='export-icon'><CiExport /> | </span>Export Targets </Button>
+      <Button variant='success' onClick={handleExport}>
+        <span className='export-icon'><CiExport /> | </span>
+        Export Targets
+      </Button>
     </div>
   );
 };

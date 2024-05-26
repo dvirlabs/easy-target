@@ -15,8 +15,12 @@ const AddTargetsFromFile = () => {
   };
 
   const handleSubmit = async (file: any) => {
+    if(!file){
+      customToast('Please select a file', ToastType.Error);
+      return;
+    }
+
     try {
-      if (file) {
         const response = await addTargetsFromFile(file); // Call the API function
         if (response.message) {
           const targetsFromFile = await readTargetsFromFile(file);
@@ -27,9 +31,6 @@ const AddTargetsFromFile = () => {
         } else {
           customToast('Error adding targets from file', ToastType.Error);
         }
-      } else {
-        customToast('Please select a file', ToastType.Error);
-      }
     } catch (error: any) {
       console.error('Error adding targets from file:', error.message || error);
       customToast(error.message || 'An error occurred while adding targets from file', ToastType.Error);
