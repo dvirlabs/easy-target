@@ -1,4 +1,5 @@
 import { Button } from 'react-bootstrap';
+import { CiExport } from "react-icons/ci";
 import { exportTargets } from '../services/target.service';
 import '../style/exportTargets.css';
 
@@ -12,9 +13,8 @@ const ExportTargets = () => {
   };
 
   return (
-    <div className='export-targets'>
-      <h1> Export Targets to file: </h1>
-      <Button variant='success' onClick={handleExport}> Export Targets </Button>
+    <div>
+      <Button variant='success' onClick={handleExport}><span className='export-icon'><CiExport /> | </span>Export Targets </Button>
     </div>
   );
 };

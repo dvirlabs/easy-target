@@ -4,17 +4,17 @@ import { addTargetsFromFile } from '../services/target.service';
 import '../style/addTargetsFromFile.css';
 import { customToast } from '../utils/toasts';
 import { EventType, ToastType, Target } from '../utils/types';
+import { BiSolidFileImport } from "react-icons/bi";
 import EventEmitter from '../utils/eventEmitter';
 
 const AddTargetsFromFile = () => {
-  const [file, setFile] = useState<File | null>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files && e.target.files[0];
-    setFile(selectedFile);
+  const handleFileChange = (event: any) => {
+    // const selectedFile = e.target.files && e.target.files[0];
+    handleSubmit(event.target.files[0])
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (file: any) => {
     try {
       if (file) {
         const response = await addTargetsFromFile(file); // Call the API function
@@ -32,9 +32,7 @@ const AddTargetsFromFile = () => {
       }
     } catch (error: any) {
       console.error('Error adding targets from file:', error.message || error);
-      customToast('An error occurred while adding targets from file', ToastType.Error);
-    } finally {
-      setFile(null);
+      customToast(error.message || 'An error occurred while adding targets from file', ToastType.Error);
     }
   };
 
@@ -47,12 +45,17 @@ const AddTargetsFromFile = () => {
     });
   };
 
+  const handleFileSelect = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.onchange = (event) => {handleFileChange(event)};
+    input.click();
+  }
+
   return (
-    <div className="add-targets-container">
-      <h1 className="header"> Add Targets from file: </h1>
-      <div className="controls">
-        <input type="file" onChange={handleFileChange} className="file-input" />
-        <Button onClick={handleSubmit} className="add-targets-button custom-add-button">Add Targets</Button>
+    <div>
+      <div>
+        <Button onClick={handleFileSelect} className="custom-add-button"><span className='import-icon'><BiSolidFileImport /></span> | Add Targets from file</Button>
       </div>
     </div>
   );

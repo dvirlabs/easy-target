@@ -1,13 +1,34 @@
-.easy-target {
-    height: 150px;
-    width: auto;
-    display: flex;
-    align-items: center; /* Keep elements vertically centered */
-    justify-content: center;
-    gap: 5px;  /* Set gap between logo and text (adjust as needed) */
-  }
-  
-  .easy-target h1 {
-    margin: 0; /* Remove default margin for better spacing */
-    font: italic small-caps bold 80px/2 cursive;
-  }
+.header {
+  display: flex;
+  justify-content: center; /* Center the logo container */
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.logo h1 {
+  margin: 0;
+  font: italic small-caps bold 80px/2 cursive;
+}
+
+.logo img {
+  height: 150px;
+  width: auto;
+  margin-left: 10px; /* Add some space between the text and the image */
+}
+
+.navbar-buttons {
+  position: absolute;
+  top: 50px;
+  right: 30px;
+  display: flex;
+  gap: 30px; /* Add some space between the buttons */
+}

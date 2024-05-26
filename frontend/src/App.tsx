@@ -54,8 +54,6 @@ function App() {
         <Components.InsertTarget />
         <Title text={titles.remove}/>
         <Components.RemoveTarget />
-        <Components.ExportTargets />
-        <Components.AddTargetsFromFile />
         <Components.TargetsWindow />
         <Components.MadeBy />
       </div>

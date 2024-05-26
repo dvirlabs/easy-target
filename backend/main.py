@@ -171,8 +171,8 @@ async def add_targets_from_file(file: UploadFile = File(...)):
             except ValueError:
                 invalid_targets.append(f"Invalid IP or port: '{target}'")
 
-        if invalid_targets:
-            raise HTTPException(status_code=400, detail={"errors": invalid_targets})
+        if len(invalid_targets) > 0:
+            raise HTTPException(status_code=400, detail=(' '.join(invalid_targets)))
 
         with open(targets_file, "a") as f:
             if os.stat(targets_file).st_size > 0:
@@ -182,7 +182,7 @@ async def add_targets_from_file(file: UploadFile = File(...)):
 
         return {"message": "Targets added successfully from file", "errors": invalid_targets}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise e
 
     
 if __name__ == "__main__":

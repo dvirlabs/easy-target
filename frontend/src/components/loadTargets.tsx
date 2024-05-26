@@ -30,11 +30,11 @@ const LoadTargets = () => {
 
     const handleNewTarget = async (newTarget: Target) => {
       setData(prevData => [...prevData, targetToString(newTarget)]);
-    }
+    };
 
     const handleRemoveTarget = async (targetToRemove: Target) => {
       setData(prevData => prevData.filter((target: string) => !target.includes(targetToString(targetToRemove))));
-    }
+    };
 
 
     const handleFileUploaded = async () => {
