@@ -25,7 +25,7 @@ function App() {
     }, [theme]);
 
     const toggleTheme = () => {
-        setTheme((curr) => (curr === 'light' ? 'dark' : 'light'));
+        setTheme((curr: string) => (curr === 'light' ? 'dark' : 'light'));
     };
 
     return (

@@ -64,8 +64,6 @@ const LoadTargets = () => {
         };
     }, []);
 
-    console.log(data);
-
     const filteredTargets = data?.filter((target) =>
         target.includes(searchQuery)
     );

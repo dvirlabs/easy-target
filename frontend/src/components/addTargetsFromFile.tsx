@@ -7,12 +7,7 @@ import { BiSolidFileImport } from 'react-icons/bi';
 import EventEmitter from '../utils/eventEmitter';
 
 const AddTargetsFromFile = () => {
-    const handleFileChange = (event: any) => {
-        // const selectedFile = e.target.files && e.target.files[0];
-        handleSubmit(event.target.files[0]);
-    };
-
-    const handleSubmit = async (file: any) => {
+    const handleFileChange = async (file: any) => {
         if (!file) {
             customToast('Please select a file', ToastType.Error);
             return;
@@ -57,7 +52,8 @@ const AddTargetsFromFile = () => {
     const handleFileSelect = () => {
         const input = document.createElement('input');
         input.type = 'file';
-        input.onchange = (event) => {
+        input.onchange = (event: any) => {
+            const file = event?.target?.files[0];
             handleFileChange(event);
         };
         input.click();
