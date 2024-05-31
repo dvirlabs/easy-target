@@ -1,5 +1,5 @@
 import { FC, KeyboardEvent, ReactElement } from 'react';
-import '../style/titels.css'
+import '../style/titels.css';
 
 interface ICustomInput {
     type?: string;
@@ -11,24 +11,24 @@ interface ICustomInput {
 }
 
 const CustomInput: FC<ICustomInput> = ({
-    type = "text",
+    type = 'text',
     value,
     placeholder,
-    className = "fileds",
+    className = 'fileds',
     onChange,
-    onKeyDown
-  }): ReactElement => {
+    onKeyDown,
+}): ReactElement => {
     return (
-      <input
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e)}
-        placeholder={placeholder}
-        className={className}
-        required
-        onKeyDown={(e) => onKeyDown(e)}
-      />
-  );
+        <input
+            type={type}
+            value={value}
+            onChange={(e) => onChange(e)}
+            placeholder={placeholder}
+            className={className}
+            required
+            onKeyDown={(e) => onKeyDown(e)}
+        />
+    );
 };
 
 export default CustomInput;
