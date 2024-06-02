@@ -1,0 +1,5 @@
+Run the backend:
+docker run -d --name easy-back -v //c/Users/dvirl/easy-target-prometheus/prometheus-app/targets.yml:/easy-target/backend/targets.yml --network easy-target-network -e PROMETHEUS_URL=http://10.20.0.11:9090 --rm -p 8000:8000 easy-target-backend
+
+Run the frontend:
+docker run -d --name easy-front --rm --network easy-target-network -p 5000:3000 easy-target-frontend  

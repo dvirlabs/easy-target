@@ -105,7 +105,7 @@ async def remove_target(data: dict):
 ######## Api request that create an Api request to Prometheus and get the targets from it ########
 @app.get("/get_targets")
 async def get_prometheus_targets():    
-    prometheus_url = "http://localhost:9090/api/v1/targets"
+    prometheus_url = os.getenv('PROMETHEUS_URL') + '/api/v1/targets'
     try:
         # Define the parameters for the query
         params = {
