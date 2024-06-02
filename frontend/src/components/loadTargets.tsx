@@ -29,11 +29,11 @@ const LoadTargets = () => {
     fetchData();
 
     const handleNewTarget = async (newTarget: Target) => {
-      setData(prevData => [...prevData, targetToString(newTarget)]);
+      setData(prevData => (Array.isArray(prevData) ? [...prevData, targetToString(newTarget)] : [targetToString(newTarget)])); // שינוי כאן
     };
 
     const handleRemoveTarget = async (targetToRemove: Target) => {
-      setData(prevData => prevData.filter((target: string) => !target.includes(targetToString(targetToRemove))));
+      setData(prevData => (Array.isArray(prevData) ? prevData.filter((target: string) => !target.includes(targetToString(targetToRemove))) : [])); // שינוי כאן
     };
 
 
