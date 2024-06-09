@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 COPY main.py .
 
-ENV PROMETHEUS_TARGETS_FILE=targets.yml
+ENV PROMETHEUS_TARGETS_FILE=targets.yml 
 
 EXPOSE 8000
 
