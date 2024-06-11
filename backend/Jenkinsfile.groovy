@@ -7,6 +7,8 @@ pipeline {
         DOCKER_REPO = 'dvirlabs/easy-target'
         SSH_CREDENTIALS_ID = 'remote-server-ssh'
         REMOTE_SERVER_IP = '192.168.1.71'
+        DOCKERHUB_USERNAME = credentials('dockerhub-username')
+        DOCKERHUB_PASSWORD = credentials('dockerhub-password')
     }
 
     stages {
@@ -44,10 +46,5 @@ pipeline {
                 }
             }
         }
-    }
-
-    environment {
-        DOCKERHUB_USERNAME = credentials('dockerhub-username')
-        DOCKERHUB_PASSWORD = credentials('dockerhub-password')
     }
 }
