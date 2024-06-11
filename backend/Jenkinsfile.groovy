@@ -40,7 +40,7 @@ pipeline {
                     // Execute commands on the remote server
                     withCredentials([usernamePassword(credentialsId: 'Auth_Dockerhub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                         sshagent([SSH_CREDENTIALS_ID]) {
-                            sh "ssh -o StrictHostKeyChecking=no jenkins@${REMOTE_SERVER_IP} '${remoteCommands}'"
+                            sh "ssh -o StrictHostKeyChecking=no root@${REMOTE_SERVER_IP} '${remoteCommands}'"
                         }
                     }
                 }
