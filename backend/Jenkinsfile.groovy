@@ -3,12 +3,10 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "dvirlabs/easy-target:back-v1"
-        DOCKER_CREDENTIALS_ID = 'Dockerhub_Auth'
+        DOCKER_CREDENTIALS_ID = 'Auth_Dockerhub'
         DOCKER_REPO = 'dvirlabs/easy-target'
         SSH_CREDENTIALS_ID = 'remote-server-ssh'
         REMOTE_SERVER_IP = '192.168.1.71'
-        DOCKERHUB_USERNAME = credentials('dockerhub-username')
-        DOCKERHUB_PASSWORD = credentials('dockerhub-password')
     }
 
     stages {
@@ -40,8 +38,10 @@ pipeline {
                     """
 
                     // Execute commands on the remote server
-                    sshagent([SSH_CREDENTIALS_ID]) {
-                        sh "ssh -o StrictHostKeyChecking=no -l jenkins ${REMOTE_SERVER_IP} '${remoteCommands}'"
+                    withCredentials([usernamePassword(credentialsId: 'Auth_Dockerhub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                        sshagent([SSH_CREDENTIALS_ID]) {
+                            sh "ssh -o StrictHostKeyChecking=no -l jenkins ${REMOTE_SERVER_IP} '${remoteCommands}'"
+                        }
                     }
                 }
             }
