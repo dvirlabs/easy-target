@@ -12,7 +12,13 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                checkout scm
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']], // Adjust this if your main branch is named differently
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [],
+                    userRemoteConfigs: [[url: 'https://github.com/dvirlabs/easy-target.git']]
+                ])
             }
         }
 
@@ -21,14 +27,14 @@ pipeline {
                 script {
                     // Get the short commit ID
                     def commitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                    DOCKER_IMAGE = "${DOCKER_REPO}:${commitId}"
+                    def dockerImage = "${DOCKER_REPO}:${commitId}"
 
                     // Define commands to run on the remote server
                     def remoteCommands = """
                         cd ${WORKSPACE}
-                        docker build -t ${DOCKER_IMAGE} .
-                        docker login -u \$DOCKERHUB_USERNAME -p \$DOCKERHUB_PASSWORD
-                        docker push ${DOCKER_IMAGE}
+                        docker build -t ${dockerImage} .
+                        echo \$DOCKERHUB_PASSWORD | docker login -u \$DOCKERHUB_USERNAME --password-stdin
+                        docker push ${dockerImage}
                     """
 
                     // Execute commands on the remote server
