@@ -14,7 +14,7 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: '*/main']], // Adjust this if your main branch is named differently
+                    branches: [[name: '*/master']], // Use 'master' if that's your main branch
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [],
                     userRemoteConfigs: [[url: 'https://github.com/dvirlabs/easy-target.git']]
