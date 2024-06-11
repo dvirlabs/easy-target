@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE = "dvirlabs/easy-target:back-v1"
         DOCKER_CREDENTIALS_ID = 'Auth_Dockerhub'
         DOCKER_REPO = 'dvirlabs/easy-target'
-        SSH_CREDENTIALS_ID = 'remote-server-ssh'
+        SSH_CREDENTIALS_ID = 'easy-target' // Updated to use the 'easy-target' SSH credentials
         REMOTE_SERVER_IP = '192.168.1.71'
     }
 
@@ -14,7 +14,7 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: '*/master']], // Use 'master' if that's your main branch
+                    branches: [[name: '*/master']], // Adjust this if your main branch is named differently
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [],
                     userRemoteConfigs: [[url: 'https://github.com/dvirlabs/easy-target.git']]
@@ -40,7 +40,7 @@ pipeline {
                     // Execute commands on the remote server
                     withCredentials([usernamePassword(credentialsId: 'Auth_Dockerhub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                         sshagent([SSH_CREDENTIALS_ID]) {
-                            sh "ssh -o StrictHostKeyChecking=no -l jenkins ${REMOTE_SERVER_IP} '${remoteCommands}'"
+                            sh "ssh -o StrictHostKeyChecking=no jenkins@${REMOTE_SERVER_IP} '${remoteCommands}'"
                         }
                     }
                 }
