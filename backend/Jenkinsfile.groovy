@@ -6,15 +6,16 @@ pipeline {
 
     stages {
 
+        stage("clone") {
+            steps {
+                sh 'git clone https://github.com/dvirlabs/easy-target.git'
+                sh 'cd easy-target/backend'
+            }
+        }
+
         stage("build") {
             steps {
-                echo 'building the application...'
-                sh """
-                    git clone https://github.com/dvirlabs/easy-target.git << EOF
-                    cd easy-target/backend
-                    docker build -t ${DOCKER_IMAGE} .
-                    EOF
-                """
+                sh 'docker build -t test-1 .'
             }
         }
 
