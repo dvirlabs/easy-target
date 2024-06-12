@@ -6,16 +6,9 @@ pipeline {
 
     stages {
 
-        stage("clone") {
-            steps {
-                sh "git clone https://github.com/dvirlabs/easy-target.git"
-                sh "cd easy-target/backend"
-            }
-        }
-
         stage("build") {
             steps {
-                sh "docker build -t ${DOCKER_IMAGE} ."
+                sh "docker build backend/ -t ${DOCKER_IMAGE} ."
             }
         }
 
