@@ -1,46 +1,34 @@
 pipeline {
     agent any
-
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
-        IMAGE_NAME = "dvirlabs/easy-target"
+        DOCKER_IMAGE = "dvirlabs/easy-target:${env.BUILD_TAG}"
     }
 
     stages {
-        stage('Checkout SCM') {
+
+        stage("build") {
             steps {
-                checkout scm
+                echo 'building the application...'
+                sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
 
-        stage('Build and Push Docker image on Remote Server') {
-            steps {
-                script {
-                    // Get the short commit hash for tagging
-                    def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                    
-                    // Generate the Docker image tag
-                    def dockerTag = "${IMAGE_NAME}:${commitHash}"
 
-                    // Use sshagent for SSH credentials
-                    sshagent (credentials: ['ssh-credentials-id']) {
-                        sh """
-                            ssh -o StrictHostKeyChecking=no root@192.168.1.71 << EOF
-                            cd easy-target/backend
-                            docker build -t ${dockerTag} .
-                            echo \$DOCKERHUB_PASSWORD | docker login -u \$DOCKERHUB_USERNAME --password-stdin
-                            docker push ${dockerTag}
-                            EOF
-                        """
-                    }
-                }
+        stage("login") {
+            steps {
+                echo 'login to Dockerhub...' 
+                sh 'docker login -u dvirlabs -p dckr_pat_pPy6gAAksSYnRq0SUFo_-XML9hY'
             }
         }
+
+        stage("Push image") {
+            steps {
+                echo 'push to dockerhub...'
+                sh "docker push ${DOCKER_IMAGE}"
+            }
+
+        }
+
     }
 
-    post {
-        always {
-            cleanWs()
-        }
-    }
 }
