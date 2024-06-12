@@ -8,14 +8,14 @@ pipeline {
 
         stage("clone") {
             steps {
-                sh 'git clone https://github.com/dvirlabs/easy-target.git'
-                sh 'cd easy-target/backend'
+                sh "git clone https://github.com/dvirlabs/easy-target.git"
+                sh "cd easy-target/backend"
             }
         }
 
         stage("build") {
             steps {
-                sh 'docker build -t test-1 .'
+                sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
 
