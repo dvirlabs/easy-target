@@ -31,7 +31,7 @@ pipeline {
 
                     // Define commands to run on the remote server
                     def remoteCommands = """
-                        cd ${WORKSPACE}
+                        cd easy-target/backend
                         docker build -t ${dockerImage} .
                         echo \$DOCKERHUB_PASSWORD | docker login -u \$DOCKERHUB_USERNAME --password-stdin
                         docker push ${dockerImage}
