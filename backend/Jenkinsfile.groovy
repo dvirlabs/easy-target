@@ -9,7 +9,12 @@ pipeline {
         stage("build") {
             steps {
                 echo 'building the application...'
-                sh "docker build -t ${DOCKER_IMAGE} ."
+                sh """
+                    git clone https://github.com/dvirlabs/easy-target.git << EOF
+                    cd easy-target/backend
+                    docker build -t ${DOCKER_IMAGE} .
+                    EOF
+                """
             }
         }
 
