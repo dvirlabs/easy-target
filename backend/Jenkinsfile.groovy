@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = "dvirlabs/easy-target:backend-${BUILD_NUMBER}"
+        DOCKER_IMAGE = "dvirlabs/easy-target:backend-v${BUILD_NUMBER}"
     }
 
     stages {
@@ -15,8 +15,10 @@ pipeline {
 
         stage("login") {
             steps {
-                echo 'login to Dockerhub...' 
-                sh 'docker login -u dvirlabs -p dckr_pat_pPy6gAAksSYnRq0SUFo_-XML9hY'
+                echo 'login to Dockerhub...'
+                withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKER_TOKEN')]) {
+                    sh 'echo $DOCKER_TOKEN | docker login --username dvirlabs --password-stdin'
+                // sh 'docker login -u dvirlabs -p dckr_pat_pPy6gAAksSYnRq0SUFo_-XML9hY'
             }
         }
 
