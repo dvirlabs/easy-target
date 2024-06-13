@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = "dvirlabs/easy-target:backend-${BUILD_TAG}"
+        DOCKER_IMAGE = "dvirlabs/easy-target:backend-${BUILD_NUMBER}"
     }
 
     stages {
