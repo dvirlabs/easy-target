@@ -34,7 +34,7 @@ pipeline {
                         sh 'curl -X POST http://localhost:8000/add_target \
                                 -H "Content-Type: application/json" \
                                 -d '{"target_ip": "8.8.8.8", "port": 1111}''
-
+                        echo 'API add_target passed'
                     } catch (Exception e) {
                         error("API test failed: ${e.message}")
                     } finally {
