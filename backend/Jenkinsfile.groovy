@@ -16,7 +16,7 @@ pipeline {
         stage("login") {
             steps {
                 echo 'Login to Dockerhub...'
-                withCredentials([string(credentialsId: 'Docker_Token', variable: 'DOCKER_TOKEN')]) {
+                withCredentials([string(credentialsId: 'Docker_Auth', variable: 'DOCKER_TOKEN')]) {
                     sh 'echo $DOCKER_TOKEN | docker login --username dvirlabs --password-stdin'
                 }
             }
