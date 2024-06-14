@@ -12,7 +12,6 @@ pipeline {
             }
         }
 
-
         stage("login") {
             steps {
                 echo 'Login to Dockerhub...'
@@ -29,12 +28,19 @@ pipeline {
                     sh "docker run -d --name backend-container -p 8000:8000 ${DOCKER_IMAGE}"
                     sleep 10 // Wait for the container to be fully up and running
                     try {
-                        sh 'curl -XGET http://localhost:8000/get_targets'
-                        echo 'API get_targets passed'
-                        sh 'curl -X POST http://localhost:8000/add_target \
-                                -H "Content-Type: application/json" \
-                                -d '{"target_ip": "8.8.8.8", "port": 1111}''
-                        echo 'API add_target passed'
+                        // Test add_target API
+                        sh '''
+                            curl -X POST http://localhost:8000/add_target \
+                                 -H "Content-Type: application/json" \
+                                 -d \'{"target_ip": "8.8.8.8", "port": 1111}\'
+                        '''
+                        echo 'add_target API test passed'
+
+                        // Test get_targets API
+                        sh '''
+                            curl -XGET http://localhost:8000/get_targets
+                        '''
+                        echo 'get_targets API test passed'
                     } catch (Exception e) {
                         error("API test failed: ${e.message}")
                     } finally {
@@ -47,12 +53,17 @@ pipeline {
 
         stage("Push image") {
             steps {
-                echo 'push to dockerhub...'
+                echo 'Push to Dockerhub...'
                 sh "docker push ${DOCKER_IMAGE}"
             }
-
         }
 
     }
 
+    post {
+        always {
+            // Clean up docker containers in case of failure
+            sh 'docker rm -f backend-container || true'
+        }
+    }
 }
