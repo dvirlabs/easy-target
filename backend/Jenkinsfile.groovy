@@ -29,8 +29,12 @@ pipeline {
                     sh "docker run -d --name backend-container -p 8000:8000 ${DOCKER_IMAGE}"
                     sleep 10 // Wait for the container to be fully up and running
                     try {
-                        sh 'curl -XGET http://localhost:8000/get_targets' 
-                        echo 'API test passed'
+                        sh 'curl -XGET http://localhost:8000/get_targets'
+                        echo 'API get_targets passed'
+                        sh 'curl -X POST http://localhost:8000/add_target \
+                                -H "Content-Type: application/json" \
+                                -d '{"target_ip": "8.8.8.8", "port": 1111}''
+
                     } catch (Exception e) {
                         error("API test failed: ${e.message}")
                     } finally {
