@@ -41,6 +41,14 @@ pipeline {
                             curl -XGET http://localhost:8000/get_targets
                         '''
                         echo 'get_targets API test passed'
+                        
+                        // Test remove_target API
+                        sh '''
+                            curl -X DELETE http://localhost:8000/remove_target \
+                                 -H "Content-Type: application/json" \
+                                 -d \'{"target_ip": "8.8.8.8", "port": 1111}\'
+                        '''
+                        echo 'remove_target API test passed'
                     } catch (Exception e) {
                         error("API test failed: ${e.message}")
                     } finally {
