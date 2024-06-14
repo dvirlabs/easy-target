@@ -30,25 +30,40 @@ pipeline {
                     try {
                         // Test add_target API
                         sh '''
-                            curl -X POST http://localhost:8000/add_target \
-                                 -H "Content-Type: application/json" \
-                                 -d \'{"target_ip": "8.8.8.8", "port": 1111}\'
+                            response=$(curl -s -w "%{http_code}" -o /tmp/add_target_response.txt -X POST http://localhost:8000/add_target \
+                                      -H "Content-Type: application/json" \
+                                      -d \'{"target_ip": "8.8.8.8", "port": 1111}\')
+                            cat /tmp/add_target_response.txt
+                            if [ "$response" -ne 200 ]; then
+                                echo "add_target API test failed with response code $response"
+                                exit 1
+                            fi
+                            echo 'add_target API test passed'
                         '''
-                        echo 'add_target API test passed'
 
                         // Test get_targets API
                         sh '''
-                            curl -XGET http://localhost:8000/get_targets
+                            response=$(curl -s -w "%{http_code}" -o /tmp/get_targets_response.txt http://localhost:8000/get_targets)
+                            cat /tmp/get_targets_response.txt
+                            if [ "$response" -ne 200 ]; then
+                                echo "get_targets API test failed with response code $response"
+                                exit 1
+                            fi
+                            echo 'get_targets API test passed'
                         '''
-                        echo 'get_targets API test passed'
                         
                         // Test remove_target API
                         sh '''
-                            curl -X DELETE http://localhost:8000/remove_target \
-                                 -H "Content-Type: application/json" \
-                                 -d \'{"target_ip": "8.8.8.8", "port": 1111}\'
+                            response=$(curl -s -w "%{http_code}" -o /tmp/remove_target_response.txt -X DELETE http://localhost:8000/remove_target \
+                                      -H "Content-Type: application/json" \
+                                      -d \'{"target_ip": "8.8.8.8", "port": 1111}\')
+                            cat /tmp/remove_target_response.txt
+                            if [ "$response" -ne 200 ]; then
+                                echo "remove_target API test failed with response code $response"
+                                exit 1
+                            fi
+                            echo 'remove_target API test passed'
                         '''
-                        echo 'remove_target API test passed'
                     } catch (Exception e) {
                         error("API test failed: ${e.message}")
                     } finally {
