@@ -40,7 +40,7 @@ pipeline {
                         sh '''
                             curl -XGET http://localhost:8000/get_targets
                         '''
-                        echo 'get_targets API test passed'
+                        echo 'get_targets API test passed' 
                         
                         // Test remove_target API
                         sh '''
