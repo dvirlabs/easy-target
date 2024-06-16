@@ -74,7 +74,7 @@ async def add_target(data: dict):
 async def remove_target(data: dict):
     # Validate IP address format
     try:
-        target_ip = data.get('target_ip')
+        target_ip = data.get('target_ip') 
         port = data.get('port')
         ip_address(target_ip)
         validate_port(port)
