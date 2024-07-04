@@ -30,6 +30,9 @@ pipeline {
                     sh  "docker run -d --name prometheus -p 9090:9090 prom/prometheus"
                     sleep 10
                     try {
+                        sh '''
+                            curl -X GET http://localhost:8000/get_targets
+                        '''
                         // Test add_target API
                         sh '''
                             curl -X POST http://localhost:8000/add_target \
