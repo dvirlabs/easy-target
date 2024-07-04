@@ -27,6 +27,8 @@ pipeline {
                 script {
                     sh "docker run -d --name backend-container -p 8000:8000 ${DOCKER_IMAGE}"
                     sleep 10 // Wait for the container to be fully up and running
+                    sh  "docker run -d --name prometheus -p 9090:9090 -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml -v $(pwd)/targets.yml:/etc/prometheus/targets.yml prom/prometheus"
+                    sleep 10
                     try {
                         // Test add_target API
                         sh '''
@@ -54,6 +56,8 @@ pipeline {
                     } finally {
                         sh 'docker stop backend-container'
                         sh 'docker rm backend-container'
+                        sh 'docker stop prometheus'
+                        sh 'docker rm prometheus'
                     }
                 }
             }
