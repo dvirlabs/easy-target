@@ -4,6 +4,7 @@ from fastapi.responses import Response
 from ipaddress import ip_address
 from fastapi import UploadFile, File
 from typing import List
+from dotenv import load_dotenv, dotenv_values
 import pandas as pd
 import requests
 import logging
@@ -23,10 +24,12 @@ app.add_middleware(
 
 os.chdir = ("..")
 
+load_dotenv()
+
 ######## Check if target exsist in targets.yml file ########
 def check_target_exists(target_ip, port):
 
-    targets_file = "prometheus-app/targets.yml"
+    targets_file = os.getenv('PROMETHEUS_TARGETS_FILE')
     with open(targets_file, "r") as f:
         for line in f:
             if f"'{target_ip}:{port}'" in line.strip():
@@ -58,7 +61,7 @@ async def add_target(data: dict):
     if check_target_exists(target_ip, port):
         raise HTTPException(status_code=409, detail=f"Target '{target_ip}:{port}' already exists")
     
-    targets_file = "prometheus-app/targets.yml"
+    targets_file = os.getenv('PROMETHEUS_TARGETS_FILE')
 
     # Update prometheus.yml with the new target
     with open(targets_file, "a") as f:
@@ -71,7 +74,7 @@ async def add_target(data: dict):
 async def remove_target(data: dict):
     # Validate IP address format
     try:
-        target_ip = data.get('target_ip')
+        target_ip = data.get('target_ip') 
         port = data.get('port')
         ip_address(target_ip)
         validate_port(port)
@@ -80,7 +83,7 @@ async def remove_target(data: dict):
         raise HTTPException(status_code=400, detail="Invalid IP address format")
 
     target_to_remove = f"'{target_ip}:{port}'"
-    targets_file = "prometheus-app/targets.yml"
+    targets_file = os.getenv('PROMETHEUS_TARGETS_FILE')
     
     # Check if target exists before attempting removal
     if not check_target_exists(target_ip, port):
@@ -102,7 +105,7 @@ async def remove_target(data: dict):
 ######## Api request that create an Api request to Prometheus and get the targets from it ########
 @app.get("/get_targets")
 async def get_prometheus_targets():    
-    prometheus_url = "http://localhost:9090/api/v1/targets"
+    prometheus_url = os.getenv('PROMETHEUS_URL') + '/api/v1/targets'
     try:
         # Define the parameters for the query
         params = {
@@ -157,7 +160,7 @@ async def add_targets_from_file(file: UploadFile = File(...)):
 
         invalid_targets = []
         valid_targets = []
-        targets_file = "prometheus-app/targets.yml"
+        targets_file = os.getenv('PROMETHEUS_TARGETS_FILE')
 
         for target in targets:
             try:

@@ -1,0 +1,10 @@
+# Description
+
+## Prerequisits
+- Run the backend:
+  1. ```docker run -d --name easy-back -v <absolute path>:/easy-target/backend/targets.yml --network easy-target-network -e PROMETHEUS_URL=http://host_ip:9090 --rm -p 8000:8000 dvirlabs/easy-target:back-v1```
+  2. Run the prometheus from C drive and then set the absolute path
+example: ```docker run -d --name backend -v //c/tmp/prometheus-app/targets.yml:/easy-target/backend/targets.yml --network easy-target-network -e PROMETHEUS_URL=http://192.168.216.221:9090 --rm -p 8000:8000 dvirlabs/easy-target:back-v1```
+
+- Run the frontend:
+  1. ```docker run -d --name easy-front --rm --network easy-target-network -p 5000:3000 -e BACKEND_URL=http://backend:8000 dvirlabs/easy-target:front-v1``
