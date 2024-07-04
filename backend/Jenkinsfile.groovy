@@ -27,7 +27,9 @@ pipeline {
                 script {
                     sh "docker run -d --name backend-container -p 8000:8000 ${DOCKER_IMAGE}"
                     sleep 10 // Wait for the container to be fully up and running
-                    sh  "docker run -d --name prometheus -p 9090:9090 prom/prometheus -v $(pwd)/targets.yml/etc/prometheus/targets.yml"
+                    sh  '''
+                        docker run -d --name prometheus -p 9090:9090 prom/prometheus -v $(pwd)/targets.yml/etc/prometheus/targets.yml
+                    '''
                     sleep 10
                     try {
                         sh '''
