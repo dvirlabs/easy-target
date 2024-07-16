@@ -8,3 +8,6 @@ example: ```docker run -d --name backend -v //c/tmp/prometheus-app/targets.yml:/
 
 - Run the frontend:
   1. ```docker run -d --name easy-front --rm --network easy-target-network -p 5000:3000 -e BACKEND_URL=http://backend:8000 dvirlabs/easy-target:front-v1``
+
+Dont forget to change the ip of the Prometheus url
+Run the prometheus from /tmp/prometheus-app
